@@ -1,0 +1,1 @@
+call mklink /D D:\Desktop\Blog\Admin\src\Q-UI D:\Desktop\Blog\frontend\src\Q-UI&&pause

@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'GermaniaOne';
+  src: url('@font/GermaniaOne.ttf');
+}
+@font-face {
+  font-family: 'blog'; /* Project id 3613658 */
+  src: url('//at.alicdn.com/t/c/font_3613658_39mujl40kt.woff2?t=1662546014808')
+    format('woff2');
+}
+@font-face {
+  font-family: 'ttf_icon';  /* Project id 3626187 */
+  src: url('//at.alicdn.com/t/c/font_3626187_5fr1s0wic04.ttf?t=1662711104313') format('truetype');
+}

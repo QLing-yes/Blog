@@ -1,0 +1,44 @@
+@import '@/assets/font/font.css';
+::-webkit-scrollbar {
+  width: 0px;
+  height: 3px;
+  background-color: #f1f2f9;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #0088ff6a;
+  border-radius: 4px;
+}
+@media (max-width: 750px) {
+  ::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+  }
+}
+html,
+body {
+  margin: 0px;
+  padding: 0px;
+}
+div {
+  display: flex;
+}
+img {
+  content-visibility: auto !important;
+  -webkit-user-drag: none !important; //禁止拖动
+  user-select: none !important; //禁止选中
+}
+.sticky {
+  position: sticky;
+  top: 0px;
+}
+#app {
+  font-family: ttf_icon;
+}
+//字体
+.GermaniaOne {
+  font-family: GermaniaOne;
+}
+[icon] {
+  font-family: blog;
+  user-select: none;
+}

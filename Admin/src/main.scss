@@ -1,0 +1,46 @@
+@import '@/assets/font/font.css';
+::-webkit-scrollbar {
+  width: 0px;
+  height: 4px;
+  background-color: #f1f2f9;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #0088ff4a;
+  border-radius: 1.5px;
+}
+@media (max-width: 750px) {
+  ::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .noPC {
+    display: none !important;
+  }
+}
+@media screen and (min-width: 769px) {
+  .yesPC {
+    display: none !important;
+  }
+}
+#app {
+  font-family: ttf_icon;
+}
+[editor] {
+  font-family: editor;
+  user-select: none;
+}
+html,
+body {
+  margin: 0px;
+  padding: 0px;
+}
+img {
+  content-visibility: auto !important;
+  -webkit-user-drag: none !important; //禁止拖动
+  user-select: none !important; //禁止选中
+}
+.noSelect {
+  user-select: none !important; //禁止选中
+}
