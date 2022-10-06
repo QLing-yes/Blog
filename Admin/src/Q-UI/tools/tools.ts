@@ -106,7 +106,7 @@ export function debounce() {
     }
 }
 /** 类型判断 */
-function isType(obj: any) {
+export function isType(obj: any) {
     if (obj !== obj) return 'NaN';
     return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase()
 }

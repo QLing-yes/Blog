@@ -48,6 +48,7 @@ const props = defineProps<props>()
 .sticky {
   position: sticky;
   top: 0px;
+  z-index: 999;
 }
 div {
   display: flex;

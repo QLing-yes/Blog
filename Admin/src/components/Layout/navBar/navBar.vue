@@ -51,6 +51,7 @@ function Current() {
     </header>
     <div class="tabs">
       <el-tag
+        draggable="true"
         :closable="closable"
         class="tag"
         @click="push(item.route)"
@@ -97,7 +98,7 @@ function Current() {
 }
 .tabs {
   align-items: center;
-  height: 30px;
+  height: 31px;
   padding-left: 10px;
   padding-right: 10px;
   $border: 1px solid rgba(214, 214, 214, 0.4);

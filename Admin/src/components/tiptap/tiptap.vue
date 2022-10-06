@@ -6,10 +6,12 @@ import { nextTick, onBeforeUnmount, ref } from 'vue'
 import { useEditor, Editor, EditorContent } from '@tiptap/vue-3'
 import { options } from '@/components/tiptap/Editor'
 
-let editor: Editor = new Editor({
+const editor: Editor = new Editor({
   ...options,
 })
-
+defineExpose({
+  editor,
+})
 onBeforeUnmount(() => {
   editor.destroy()
 })
@@ -17,8 +19,10 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="tiptap">
-    <div class="menus">
-      <menus :editor="editor"></menus>
+    <div class="head">
+      <div class="menus">
+        <menus :editor="editor"></menus>
+      </div>
     </div>
     <div class="content">
       <EditorContent :editor="editor" class="editor" />
@@ -27,29 +31,35 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped lang="scss">
+.head {
+  position: fixed;
+  width: 100%;
+}
+.menus {
+  display: flex;
+  height: 40px;
+  width: 100%;
+  align-items: center;
+  // overflow-x: scroll;
+  // overflow-y: hidden;
+  contain: size layout;
+}
 .editor {
   flex: 1;
-  background-color: aliceblue;
+  &:deep(.ProseMirror) {
+    outline: none;
+  }
 }
 .tiptap {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  & > .menus {
-    display: flex;
-    height: 40px;
-    align-items: center;
-    background-color: #ffffff;
-    // background-color: #e9ecf4;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    // contain: strict;
-  }
+  position: relative;
   & > .content {
+    margin-top: 40px;
     display: flex;
     flex: 1;
+    flex-direction: column;
     justify-content: center;
-    background-color: blueviolet;
     overflow: auto;
   }
 }

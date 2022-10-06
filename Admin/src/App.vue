@@ -44,7 +44,7 @@ const fold = ref(false)
 </style>
 <style scoped lang="scss">
 .main {
-  background-color: antiquewhite;
+  // background-color: antiquewhite;
   width: 100%;
 }
 
