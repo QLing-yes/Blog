@@ -6,6 +6,6 @@ Object.keys(paths).map((k) => {
     const key = k.replace("/*", '');
     AliasList[key] = __dirname+'/' + paths[k][0].replace("*", '')
 })
-console.log(AliasList);
+console.log('已别名路径:',AliasList);
 
 Alias.addAliases(AliasList);

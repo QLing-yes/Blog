@@ -5,6 +5,8 @@ import ChooseFile from '@/Q-UI/ChooseFile/ChooseFile.vue'
 import { isType } from '@/Q-UI/tools/tools'
 import { Plus } from '@element-plus/icons-vue'
 import { ref } from 'vue'
+import { client } from '@/models/api/client'
+import { getTag } from '@/models/api/api'
 
 const cover = {
   w: ref(300),
@@ -13,23 +15,33 @@ const cover = {
 const _tiptap = ref<InstanceType<typeof tiptap>>()
 const E = ref({
   title: '',
-  content: '',
+  content: {
+    value: '',
+    type: '',
+  },
   tag: [] as string[],
   coverImg: '',
 })
-const col = [
-  { value: 'vue' },
-  { value: 'element' },
-  { value: 'cooking' },
-  { value: 'mint-ui' },
-  { value: 'vuex' },
-  { value: 'vue-router' },
-  { value: 'babel' },
-]
-function getArticle() {
-  E.value.content = _tiptap.value?.editor.getHTML() || ''
-  return JSON.stringify(E.value)
+
+let Tags = ref<{ value: string; link?: string }[]>([])
+getTag((e) => {
+  if (e) Tags.value = e
+})
+
+/** 提交文章 */
+async function submit() {
+  const article = getArticle()
+  let ret = await client.callApi('AddArticle', article)
+  console.log('响应', ret)
 }
+//获取文章信息
+function getArticle() {
+  const { content } = E.value
+  content.value = _tiptap.value?.editor.getHTML() || ''
+  content.type = 'html'
+  return E.value
+}
+// 设置文章封面
 function coverFile(e: { result: res[]; noSucc: res[] }) {
   if (!(isType(e.result[0]?.read) == 'string')) return
   const read = e.result[0].read as string
@@ -43,18 +55,24 @@ function coverFile(e: { result: res[]; noSucc: res[] }) {
   <div class="box">
     <div>
       <!-- 文章标题 -->
-      <input
-        v-model="E.title"
-        class="title"
-        placeholder="标题(30字以内)"
-        maxlength="30"
-        type="text"
-      />
+      <div class="title">
+        <input
+          v-model="E.title"
+          placeholder="标题(30字以内)"
+          maxlength="30"
+          type="text"
+        />
+        <div>
+          <div class="submit noSelect" @click="submit">提交</div>
+        </div>
+      </div>
+
       <!-- 编辑区 -->
       <tiptap ref="_tiptap"></tiptap>
     </div>
+    <span id="title">文章标签</span>
     <!-- 添加文章标签 -->
-    <newTag :suggestion="col" @tags="E.tag = $event"></newTag>
+    <newTag :suggestion="Tags" @tags="E.tag = $event"></newTag>
     <!-- 封面预览 -->
     <div class="cover">
       <span id="title">封面预览</span>
@@ -63,7 +81,7 @@ function coverFile(e: { result: res[]; noSucc: res[] }) {
         <input type="number" placeholder="高" v-model="cover.h.value" />
       </div>
       <div class="imgUpload">
-        <img v-if="E.coverImg" :src="E.coverImg" />
+        <img @click="E.coverImg = ''" v-if="E.coverImg" :src="E.coverImg" />
         <template v-else>
           <el-icon class="Plus"><Plus /></el-icon>
           <ChooseFile
@@ -74,17 +92,48 @@ function coverFile(e: { result: res[]; noSucc: res[] }) {
           ></ChooseFile>
         </template>
       </div>
+      <textarea
+        class="imgUrl"
+        v-model="E.coverImg"
+        type="text"
+        placeholder="https://example.com/a.png"
+      />
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
+.submit:hover {
+  background-color: #379bff;
+}
+.submit {
+  cursor: pointer;
+  color: #fff;
+  display: flex;
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  background-color: #379bffcc;
+}
 #title {
+  display: block;
+  margin: 10px 0px 10px 0px;
   color: #606266;
   font-size: 1.3rem;
 }
-.WH {
+.imgUrl {
   margin-top: 10px;
+  margin-right: 5px;
+  width: v-bind('cover.w.value+"px"');
+  height: 20px;
+  border-radius: 5px;
+  border: 0.5px solid rgb(179, 179, 179);
+  color: rgb(77, 77, 77);
+}
+.WH {
+  // margin-top: 10px;
   margin-bottom: 10px;
   width: 150px;
   display: flex;
@@ -130,7 +179,7 @@ function coverFile(e: { result: res[]; noSucc: res[] }) {
     margin: 0 8px 0 0;
   }
 }
-.title {
+.title > input {
   height: 40px;
   border: 0px;
   outline: none;
@@ -139,6 +188,11 @@ function coverFile(e: { result: res[]; noSucc: res[] }) {
   &::placeholder {
     color: #ccd0d4;
   }
+}
+.title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .box {
   background-color: #fff;

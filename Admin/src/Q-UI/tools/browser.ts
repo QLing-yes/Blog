@@ -2,7 +2,8 @@
 export function Fullscreen(El?: HTMLElement) {
     const l = document.fullscreenElement
     if (l) document.exitFullscreen()
-    else (El || document.body).requestFullscreen()
+    // else (El || document.body).requestFullscreen()
+    else (El || document.documentElement).requestFullscreen()
     return !l
 }
 /** 拖动上传文件 */

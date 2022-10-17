@@ -1,9 +1,11 @@
 import { ServiceType } from "@src/shared/protocols/serviceProto";
 import { HttpConnection, HttpServer } from "tsrpc";
 
-export class NextData {
+type Server = HttpServer<ServiceType>
+type Flow = Parameters<Parameters<Server['flows']['preRecvDataFlow']['push']>[0]>[0]
+export class Guard {
 
-    static init(server: HttpServer<ServiceType>) {
+    static init(server: Server) {
         // 发送数据前
         // server.flows.preSendDataFlow.push((v) => {
         //     return v;
@@ -21,10 +23,11 @@ export class NextData {
 
 
 //基本httpReq信息
-function BaseInfo(v: any) {
+function BaseInfo(v: Flow) {
     let { data, serviceName, } = v;
-    let { ip } = v.conn as HttpConnection;
-    let { method, url } = v.conn.httpReq;
+    // HttpServer，对应的 conn 实际是 HttpConnection
+    let { ip, httpReq } = v.conn as HttpConnection;
+    let { method, url } = httpReq;
     return {
         conn: v.conn as HttpConnection,
         data,

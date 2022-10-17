@@ -92,6 +92,7 @@ function endsWiths(str: string, sub: string[]) {
 
 <style scoped lang="scss">
 input[type='file'] {
+  cursor: pointer;
   color: rgba(255, 255, 255, 0);
   user-select: none;
   contain: strict;

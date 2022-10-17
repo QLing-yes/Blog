@@ -2,7 +2,7 @@ import "./pathAlias";
 import * as path from "path";
 import { HttpServer } from "tsrpc";
 import { serviceProto } from "./shared/protocols/serviceProto";
-import { NextData } from "./models/Flow/Flow";
+import { Guard } from "./models/Flow/Flow";
 
 // Create the Server
 const server = new HttpServer(serviceProto, {
@@ -11,11 +11,10 @@ const server = new HttpServer(serviceProto, {
     json: true
 });
 
-// Initialize before server start
 async function init() {
     // Auto implement APIs
     await server.autoImplementApi(path.resolve(__dirname, 'api'));
-    NextData.init(server)
+    Guard.init(server)
 };
 
 // Entry function

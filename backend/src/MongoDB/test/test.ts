@@ -1,6 +1,6 @@
 // import { AnyBulkWriteOperation } from 'mongodb';
 import { Schema } from './Schema';
-import { MongoDB } from './db';
+import { MongoDB } from '../db';
 
 const MDB = new MongoDB<Schema>(
   'mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false',
@@ -10,8 +10,7 @@ MDB.PushTaskFlow('DB_A', 'CollA', [
   {
     'insertOne': {
       'document': {
-        'CollA': { 'age': '18', 'name': 'A' },
-        'CollB': { 'BB': 11, 'CC': '33' }
+        'age': '18', 'name': 'A'
       }
     }
   }

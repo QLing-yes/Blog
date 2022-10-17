@@ -20,12 +20,12 @@ export interface DB_B {
 }
 
 export interface Schema {
-  DB_A: DB_A;
-  DB_B: DB_B;
+  DB_A: DB_A
+  DB_B: DB_B
 }
 
 // //数据库模型
-// type db = {
+// {
 //   //数据库名称
 //   [key: string]: {
 //     //集合名称

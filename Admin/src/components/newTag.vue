@@ -24,8 +24,9 @@ function Close(tag: string) {
   emit('tags', tags)
 }
 function handleInputConfirm() {
-  if (inputValue.value) {
-    Tags.value.push(inputValue.value)
+  const tag = Lower(inputValue.value)
+  if (tag && !Tags.value.includes(tag)) {
+    Tags.value.push(tag)
     emit('tags', Tags.value)
   }
   inputVisible.value = false
@@ -37,14 +38,18 @@ function showInput() {
     InputRef.value?.focus()
   })
 }
-
+//输入筛选
 function querySearch(queryString: string, cb: (a: col) => void) {
-  cb(subFilter(queryString, props.suggestion))
+  const col = props.suggestion.filter(({ value }) => !Tags.value.includes(value))
+  cb(subFilter(queryString, col))
 }
 function subFilter(query: string, col: col) {
   if (!query) return col
-  query = query.toLowerCase()
-  return col.filter(({ value }) => value.toLowerCase().includes(query))
+  query = Lower(query)
+  return col.filter(({ value }) => Lower(value).includes(query))
+}
+function Lower(v: string) {
+  return v.toLowerCase()
 }
 </script>
 
@@ -53,7 +58,7 @@ function subFilter(query: string, col: col) {
     <el-tag
       v-for="tag in Tags"
       :key="tag"
-      class="tag"
+      class="tag gap"
       closable
       :disable-transitions="false"
       @close="Close(tag)"
@@ -65,7 +70,7 @@ function subFilter(query: string, col: col) {
       ref="InputRef"
       v-model="inputValue"
       :fetch-suggestions="querySearch"
-      class="input"
+      class="input gap"
       size="small"
       maxlength="15"
       clearable
@@ -73,10 +78,15 @@ function subFilter(query: string, col: col) {
       @select="handleInputConfirm"
       @blur="handleInputConfirm"
     />
-    <el-button v-else class="button" size="small" @click="showInput">
+    <el-button v-else class="button gap" size="small" @click="showInput">
       + New Tag
     </el-button>
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.gap {
+  margin-top: 2px;
+  margin-left: 8px;
+}
+</style>
