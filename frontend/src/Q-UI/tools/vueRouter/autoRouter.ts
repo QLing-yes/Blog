@@ -18,7 +18,7 @@ export class initRoute {
         }
     }
 }
-/**创建路由表
+/** 创建路由表
  * @param removeHead 去除路径段开始部分
  * @param modules 示例 import.meta.glob(匹配文件);
  */
@@ -33,3 +33,4 @@ export function RoutesTable(removeHead: string, modules: Record<string, () => Pr
     }
     return Table;
 }
+// const modules = import.meta.glob('../../page/*/*.vue');

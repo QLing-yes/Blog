@@ -1,8 +1,8 @@
-import { ServiceProto } from 'tsrpc-proto';
-import { ReqAddArticle, ResAddArticle } from './PtlAddArticle';
-import { ReqgetArticle, ResgetArticle } from './PtlgetArticle';
-import { ReqgetTag, ResgetTag } from './PtlgetTag';
-import { ReqgetTagCount, ResgetTagCount } from './PtlgetTagCount';
+import type { ServiceProto } from 'tsrpc-proto';
+import type { ReqAddArticle, ResAddArticle } from './PtlAddArticle';
+import type { ReqgetArticle, ResgetArticle } from './PtlgetArticle';
+import type { ReqgetTag, ResgetTag } from './PtlgetTag';
+import type { ReqgetTagCount, ResgetTagCount } from './PtlgetTagCount';
 
 export interface ServiceType {
     api: {
@@ -29,7 +29,7 @@ export interface ServiceType {
 }
 
 export const serviceProto: ServiceProto<ServiceType> = {
-    "version": 16,
+    "version": 18,
     "services": [
         {
             "id": 4,
@@ -57,7 +57,7 @@ export const serviceProto: ServiceProto<ServiceType> = {
             "type": "Interface",
             "extends": [
                 {
-                    "id": 4,
+                    "id": 5,
                     "type": {
                         "target": {
                             "type": "IndexedAccess",
@@ -68,7 +68,8 @@ export const serviceProto: ServiceProto<ServiceType> = {
                             }
                         },
                         "keys": [
-                            "ID"
+                            "ID",
+                            "time"
                         ],
                         "type": "Omit"
                     }
@@ -87,6 +88,13 @@ export const serviceProto: ServiceProto<ServiceType> = {
                             {
                                 "id": 4,
                                 "name": "ID",
+                                "type": {
+                                    "type": "Number"
+                                }
+                            },
+                            {
+                                "id": 5,
+                                "name": "time",
                                 "type": {
                                     "type": "Number"
                                 }

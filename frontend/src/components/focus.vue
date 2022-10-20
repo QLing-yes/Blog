@@ -2,7 +2,7 @@
 import card from '@/Q-UI/Q-card/card.vue'
 import img from '@/assets/img/welt.jpg'
 import { nextTick, ref } from 'vue'
-import { catchScroll } from '@/Q-UI/tools/anima'
+import { catchScroll } from '@/Q-UI/tools/browser'
 let cardList = ref<string[][]>([])
 cardList.value = [
   [img, 'node.js', '文章数量20'],

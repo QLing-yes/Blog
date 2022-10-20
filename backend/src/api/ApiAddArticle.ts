@@ -15,9 +15,10 @@ export default async function (call: ApiCall<ReqAddArticle, ResAddArticle>) {
         ID = (Last[0]?.ID || 0) + 1;
     }
     call.req.tag = Array.from(new Set(call.req.tag.map(e => e.toLowerCase())));
+    
     const Doc = {
         'insertOne': {
-            'document': { ...call.req, ID }
+            'document': { ...call.req, ID, time: Date.now() }
         }
     }
     MDB.bindCB(Doc, (doc, _err) => {

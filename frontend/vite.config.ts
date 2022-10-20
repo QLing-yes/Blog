@@ -8,6 +8,8 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 export default defineConfig({
   plugins: [vue(), vueJsx()],
   resolve: {
+    //不使用符号链接后的原始文件路径?
+    preserveSymlinks: true,
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
       '@img': fileURLToPath(new URL('./src/assets/img', import.meta.url)),

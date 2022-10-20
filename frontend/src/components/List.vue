@@ -1,18 +1,11 @@
 <script lang="ts" setup>
 import card from '@/Q-UI/Q-card/card_2.vue'
-import img from '@/assets/img/welt.jpg'
 import Load from '@/components/autoLoad.vue'
 import { computed, inject, ref } from 'vue'
-let d = [
-  '2022/9/8',
-  '贝塞尔曲线算法',
-  'node.js',
-  `Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad quae autvoluptates facere at cum mai ores dolores neque, eum iste, eos inventorecupiditate tempora ducimus itaque quibus dam debitis! Expedita, ab.`,
-]
+import { ArticleList, nextPage } from '@/models/State/State'
+
 const isPC = inject('isPC')
 
-let num = ref(5)
-let autoLoad = ref(false)
 let row = ref<boolean>(true)
 let imgWH = computed(() => {
   return {
@@ -24,14 +17,16 @@ let imgWH = computed(() => {
     'img-h': !row.value ? (isPC ? '15vw' : '100px') : undefined,
   }
 })
+// let process: number[] = []
 
+function slice(item: typeof ArticleList.value[0]) {
+  const { time, title, tag, content } = item
+  return [new Date(time).toDateString(), title, tag.toString(), content.value]
+}
 function rows() {
   return Math.floor(Math.random() * 3 + 1)
 }
-function load() {
-  console.log("加载");
-  num.value = num.value + 5
-}
+function d() {}
 </script>
 <template>
   <div class="List">
@@ -39,17 +34,18 @@ function load() {
       <span>&#xe6cd; Article</span>
       <span @click="row = !row">切换布局</span>
     </label>
-    <div v-for="w in isPC ? 3 : 2">
+    <div v-for="col in isPC ? 4 : 2">
       <card
+        v-for="(item, i) in ArticleList"
+        :key="item.ID"
         :rows="rows()"
-        v-for="l in num"
         class="card"
-        :content="d"
-        :src="img"
+        :content="slice(item)"
+        :src="item.coverImg"
         v-bind="imgWH"
       ></card>
     </div>
-    <Load @load="load"></Load>
+    <Load @load="nextPage"></Load>
   </div>
 </template>
 <style lang="scss" scoped>

@@ -1,0 +1,1 @@
+call mklink /D D:\Desktop\Blog\frontend\src\shared D:\Desktop\Blog\backend\src\shared && pause

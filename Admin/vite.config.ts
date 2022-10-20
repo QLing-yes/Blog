@@ -21,6 +21,8 @@ export default defineConfig({
     })
   ],
   resolve: {
+    //不使用符号链接后的原始文件路径?
+    preserveSymlinks: true,
     dedupe: [
       'vue'
     ],

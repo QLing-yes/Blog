@@ -11,6 +11,8 @@
       "path": "./tsconfig.vitest.json"
     }
   ],
-  "target": "ES2017",
-  "module": "NodeNext",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+  },
 }

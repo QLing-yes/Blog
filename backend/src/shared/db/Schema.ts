@@ -1,7 +1,8 @@
 
 export interface Blog {
   Article: {
-    ID: number,//唯一
+    ID: number //唯一
+    time: number
     title: string
     content: {
       value: string

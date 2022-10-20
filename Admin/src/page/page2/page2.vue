@@ -5,8 +5,8 @@ import ChooseFile from '@/Q-UI/ChooseFile/ChooseFile.vue'
 import { isType } from '@/Q-UI/tools/tools'
 import { Plus } from '@element-plus/icons-vue'
 import { ref } from 'vue'
-import { client } from '@/models/api/client'
-import { getTag } from '@/models/api/api'
+import { client } from '@/shared/api/client'
+import { getTag } from '@/shared/api/api'
 
 const cover = {
   w: ref(300),

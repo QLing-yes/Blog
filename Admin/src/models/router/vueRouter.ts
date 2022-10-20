@@ -1,5 +1,5 @@
 import type { RouteRecordRaw } from "vue-router";
-import { RoutesTable, initRoute } from "./autoRouter";
+import { RoutesTable, initRoute } from "@/Q-UI/tools/vueRouter/autoRouter";
 const modules_1 = import.meta.glob('../../page/*/*.vue');
 /** 路由表 */
 export const Table = routes()
