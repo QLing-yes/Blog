@@ -99,7 +99,9 @@ export function CountAnimaFrame(callback: (e: number) => void, duration: number)
     // foo()
     return stop;
 }
-/** 使用滚轮和拖拽 滚动内容 */
+//-----------------------------滚动---------------------
+
+/** 使用滚轮或拖拽进行滚动内容 */
 export function catchScroll(el: HTMLElement, to?: 'top' | 'left', destroy?: (e: Function) => void) {
     let startX: number, startY: number;
     let options = { passive: false };
