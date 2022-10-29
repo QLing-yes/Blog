@@ -1,5 +1,6 @@
 
 export interface Blog {
+  //文章集合
   Article: {
     ID: number //唯一
     time: number
@@ -8,8 +9,14 @@ export interface Blog {
       value: string
       type: string
     }
-    tag: string[]
+    /** 文章摘要 */
+    brief: string
+    tag: string
     coverImg: string
+  }
+  State: {
+    // 文章标签
+    tagSize: { [key: string]: number }
   }
 }
 

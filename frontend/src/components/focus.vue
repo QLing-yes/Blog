@@ -3,16 +3,13 @@ import card from '@/Q-UI/Q-card/card.vue'
 import img from '@/assets/img/welt.jpg'
 import { nextTick, ref } from 'vue'
 import { catchScroll } from '@/Q-UI/tools/browser'
+import { getTagCount } from '@/shared/api/api'
 let cardList = ref<string[][]>([])
-cardList.value = [
-  [img, 'node.js', '文章数量20'],
-  [img, 'vue3', '文章数量20'],
-  [img, 'vue2', '文章数量20'],
-  [img, 'uniapp', '文章数量20'],
-  [img, 'web', '文章数量20'],
-  [img, 'js', '文章数量20'],
-  [img, 'css', '文章数量20'],
-]
+getTagCount().then((e) => {
+  for (let key in e.res?.tagSize) {
+    cardList.value.push([img, key, '文章数量' + e.res?.tagSize[key]])
+  }
+})
 let cardBOX = ref<HTMLElement>()
 nextTick(() => {
   catchScroll(cardBOX.value!)

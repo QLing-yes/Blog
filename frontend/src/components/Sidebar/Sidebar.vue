@@ -1,14 +1,22 @@
 <script lang="ts" setup>
 import avatar from '@img/LingMo.webp'
 import { ref } from 'vue'
-import Collapse from '@/components/Collapse.vue'
-import tabList from '@/assets/json/SidebarList.json'
+import Collapse from '@/components/Collapse/Collapse.vue'
+import tabList from './SidebarList.json'
+import { useRouter, useRoute } from 'vue-router'
 
+const router = useRouter()
 //侧边栏 tab列表
-let SidebarList = ref(tabList)
+let SidebarList = ref<Sidebar[]>(tabList)
 //点击侧边栏的tab列表处理
-function SidebarTab(list: any, xy: any[], auto: Function) {
+function SidebarTab(
+  item: string[],
+  xy: [number, number?],
+  auto: Function,
+  list?: tab[],
+) {
   auto()
+  if (item[3]) router.push(item[3])
   return
 }
 </script>

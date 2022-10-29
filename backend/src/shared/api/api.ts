@@ -5,21 +5,14 @@ import type { TsrpcError } from 'tsrpc-browser';
 import type { ResgetArticle } from '../protocols/PtlgetArticle';
 
 export type Article = res<'getArticle'>['Article']
+export type TagCount = res<'getTagCount'>
 type col = { value: string; link?: string }
 
-/** 获取所有标签 */
-export function getTag(CB: (col?: col[]) => void) {
-    client.callApi('getTag', {}).then((e) => {
-        const { isSucc, res } = e
-        let v = res?.tag.map((tag) => {
-            return { value: tag.replace('tag_', '') }
-        })
-        CB(v)
-    })
+/** 获取所有标签数量*/
+export function getTagCount() {
+    return client.callApi('getTagCount', {})
 }
-
-/** 获取文章 */
-export function getArticle(start = 0, Callback?: (e?: TsrpcError, res?: ResgetArticle) => void) {
-    client.callApi('getArticle', { start })
-        .then((e) => { Callback?.(e.err, e.res) })
+/** 获取摘要文章列表 */
+export function getArticle(start = 0) {
+    return client.callApi('getArticle', { start, brief: true })
 }

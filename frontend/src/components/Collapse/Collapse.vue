@@ -1,35 +1,41 @@
 <!-- 竖向折叠面板 -->
 <script lang="ts" setup>
-import QFolding from '../Q-UI/Q-folding/folding.vue'
+import QFolding from '../../Q-UI/Q-folding/folding.vue'
 import ThreeCol from '@/components/ThreeCol.vue'
+import { useRouter, useRoute } from 'vue-router'
 
-type tab = {
-  fall?: boolean
-  tab?: (string | number)[]
-  sub?: (string | number)[][]
-}
 type prop = {
   tab?: tab[]
 }
 type emits = {
-  (e: 'tab', list: prop['tab'], xy: [number, number?], auto: Function): void
+  (
+    e: 'tab',
+    item: string[],
+    xy: [number, number?],
+    auto: Function,
+    list: prop['tab'],
+  ): void
 }
 
+const route = useRoute()
+const router = useRouter()
 const props = defineProps<prop>()
 const emit = defineEmits<emits>()
-
-function emitTab(item: tab, xy: [number, number?]) {
+// router.push('/')
+function emitTab(Tab: tab, xy: [number, number?]) {
   //代理折叠
   function auto() {
     if (xy[1] == undefined) {
-      item.fall = !item.fall
+      Tab.fall = !Tab.fall
       //跳过当前点击, 其他全部折叠
       props.tab?.map((e) => {
         if (props.tab?.[xy[0]] != e) e.fall = false
       })
     }
   }
-  emit('tab', props.tab, xy, auto)
+  const { sub, tab } = Tab
+  const item = xy[1] != undefined ? sub![xy[1]] : tab!
+  emit('tab', item, xy, auto, props.tab)
 }
 </script>
 
@@ -42,7 +48,7 @@ function emitTab(item: tab, xy: [number, number?]) {
       :rotate="item.fall && !!item.sub"
       @click="emitTab(item, [x])"
     ></ThreeCol>
-    <!-- 可折叠区域 -->
+    <!-- 可折叠 -->
     <template #folding>
       <ThreeCol
         @click="emitTab(item, [x, y])"

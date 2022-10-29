@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import platform from '@/assets/json/platform.json'
 import { inject, nextTick, ref } from 'vue'
 import { $scrollTo } from '@/Q-UI/tools/anima'
 import avatar from '@img/LingMo.webp'
@@ -7,7 +8,6 @@ import bj from '@img/bj.jpg'
 const StartPage = ref<Element>()
 const winEl = inject('isPC') ? document.documentElement : document.body
 let blog = 'LingMo'
-let logo = ['\ue649', '\ue600', '\ue722']
 
 nextTick(() => {
   StartPage.value?.addEventListener(
@@ -24,6 +24,9 @@ nextTick(() => {
 
 function nextPage() {
   $scrollTo(winEl, [0, StartPage.value?.getBoundingClientRect().height || 0])
+}
+function toLink(url: string) {
+  window.open(url)
 }
 </script>
 
@@ -52,7 +55,14 @@ function nextPage() {
       <!-- 平台 -->
       <div class="float"></div>
       <div class="float">
-        <div class="logo" icon v-for="item in logo">{{ item }}</div>
+        <div
+          class="logo"
+          icon
+          v-for="item in platform"
+          @click="toLink(item[2])"
+        >
+          {{ item[1] }}
+        </div>
       </div>
     </div>
   </div>

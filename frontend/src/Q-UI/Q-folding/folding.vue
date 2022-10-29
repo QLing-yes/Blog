@@ -1,10 +1,9 @@
-<!-- 竖向折叠控件 -->
 <script lang="ts" setup>
 const props = defineProps({
   fall: { type: Boolean },
 })
 </script>
-
+<!-- 竖向折叠控件 -->
 <template>
   <!-- flex-direction: column; -->
   <div class="title" v-bind="$attrs">

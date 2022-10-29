@@ -1,12 +1,11 @@
 <script lang="ts" setup>
 import { $scrollTo } from '@/Q-UI/tools/anima'
 import { inject, ref } from 'vue'
-
+import platform from '@/assets/json/platform.json'
 const winEl = inject('isPC') ? document.documentElement : document.body
 const html = document.documentElement
 const progress = ref(0 + '%')
 let p: string
-let logo = ['\ue649', '\ue600', '\ue722']
 
 loopAnima()
 //进度条
@@ -25,13 +24,17 @@ function getProgress2(el: HTMLElement) {
 function toTop() {
   $scrollTo(winEl, [0, 0])
 }
+
+function toLink(url: string) {
+  window.open(url)
+}
 </script>
 
 <template>
   <div class="progress"></div>
   <div class="StatusBar shadow" v-bind="$attrs">
     <div class="L">
-      <span class="logo" icon v-for="item in logo">{{ item }}</span>
+      <span class="logo" icon v-for="item in platform" @click="toLink(item[2])">{{ item[1] }}</span>
     </div>
     <div class="C"></div>
     <div class="R">

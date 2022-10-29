@@ -2,7 +2,10 @@
 import { computed, inject, ref } from 'vue'
 
 type prop = {
+  /** 主题色 */
   color?: string
+  /** 关闭面板? */
+  no_panel?: boolean
 }
 
 const props = defineProps<prop>()
@@ -32,7 +35,7 @@ function _unfold(e: boolean) {
     </div>
     <div class="Content">
       <!-- 面板 -->
-      <div class="panel">
+      <div class="panel" v-if="!no_panel">
         <div class="T">
           <slot name="T"></slot>
         </div>

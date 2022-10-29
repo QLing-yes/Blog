@@ -5,6 +5,7 @@ import { computed, inject, ref } from 'vue'
 import { ArticleList, nextPage } from '@/models/State/State'
 
 const isPC = inject('isPC')
+// const reg = new RegExp('<[^<>]+>', 'g')
 
 let row = ref<boolean>(true)
 let imgWH = computed(() => {
@@ -17,16 +18,19 @@ let imgWH = computed(() => {
     'img-h': !row.value ? (isPC ? '15vw' : '100px') : undefined,
   }
 })
-// let process: number[] = []
 
 function slice(item: typeof ArticleList.value[0]) {
-  const { time, title, tag, content } = item
-  return [new Date(time).toDateString(), title, tag.toString(), content.value]
+  const { time, title, tag, brief } = item
+  return [
+    new Date(time).toDateString(),
+    title,
+    tag.toString(),
+    brief,
+  ]
 }
 function rows() {
   return Math.floor(Math.random() * 3 + 1)
 }
-function d() {}
 </script>
 <template>
   <div class="List">
@@ -34,11 +38,11 @@ function d() {}
       <span>&#xe6cd; Article</span>
       <span @click="row = !row">切换布局</span>
     </label>
-    <div v-for="col in isPC ? 4 : 2">
+    <div>
       <card
         v-for="(item, i) in ArticleList"
         :key="item.ID"
-        :rows="rows()"
+        :rows="1"
         class="card"
         :content="slice(item)"
         :src="item.coverImg"
@@ -80,8 +84,8 @@ function d() {}
 }
 .List > div {
   flex: 1;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
   & > .card {
     contain: content;
     content-visibility: auto;

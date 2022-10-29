@@ -1,7 +1,6 @@
 import type { ServiceProto } from 'tsrpc-proto';
 import type { ReqAddArticle, ResAddArticle } from './PtlAddArticle';
 import type { ReqgetArticle, ResgetArticle } from './PtlgetArticle';
-import type { ReqgetTag, ResgetTag } from './PtlgetTag';
 import type { ReqgetTagCount, ResgetTagCount } from './PtlgetTagCount';
 
 export interface ServiceType {
@@ -14,10 +13,6 @@ export interface ServiceType {
             req: ReqgetArticle,
             res: ResgetArticle
         },
-        "getTag": {
-            req: ReqgetTag,
-            res: ResgetTag
-        },
         "getTagCount": {
             req: ReqgetTagCount,
             res: ResgetTagCount
@@ -29,7 +24,7 @@ export interface ServiceType {
 }
 
 export const serviceProto: ServiceProto<ServiceType> = {
-    "version": 18,
+    "version": 25,
     "services": [
         {
             "id": 4,
@@ -39,11 +34,6 @@ export const serviceProto: ServiceProto<ServiceType> = {
         {
             "id": 8,
             "name": "getArticle",
-            "type": "api"
-        },
-        {
-            "id": 6,
-            "name": "getTag",
             "type": "api"
         },
         {
@@ -57,7 +47,7 @@ export const serviceProto: ServiceProto<ServiceType> = {
             "type": "Interface",
             "extends": [
                 {
-                    "id": 5,
+                    "id": 7,
                     "type": {
                         "target": {
                             "type": "IndexedAccess",
@@ -69,10 +59,42 @@ export const serviceProto: ServiceProto<ServiceType> = {
                         },
                         "keys": [
                             "ID",
-                            "time"
+                            "time",
+                            "tag",
+                            "brief"
                         ],
                         "type": "Omit"
                     }
+                }
+            ],
+            "properties": [
+                {
+                    "id": 0,
+                    "name": "tag",
+                    "type": {
+                        "type": "Array",
+                        "elementType": {
+                            "type": "IndexedAccess",
+                            "index": "tag",
+                            "objectType": {
+                                "type": "Reference",
+                                "target": "PtlAddArticle/Article"
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": 1,
+                    "name": "brief",
+                    "type": {
+                        "type": "IndexedAccess",
+                        "index": "brief",
+                        "objectType": {
+                            "type": "Reference",
+                            "target": "PtlAddArticle/Article"
+                        }
+                    },
+                    "optional": true
                 }
             ]
         },
@@ -130,13 +152,17 @@ export const serviceProto: ServiceProto<ServiceType> = {
                                 }
                             },
                             {
+                                "id": 6,
+                                "name": "brief",
+                                "type": {
+                                    "type": "String"
+                                }
+                            },
+                            {
                                 "id": 2,
                                 "name": "tag",
                                 "type": {
-                                    "type": "Array",
-                                    "elementType": {
-                                        "type": "String"
-                                    }
+                                    "type": "String"
                                 }
                             },
                             {
@@ -148,8 +174,38 @@ export const serviceProto: ServiceProto<ServiceType> = {
                             }
                         ]
                     }
+                },
+                {
+                    "id": 1,
+                    "name": "State",
+                    "type": {
+                        "type": "Interface",
+                        "properties": [
+                            {
+                                "id": 0,
+                                "name": "tagSize",
+                                "type": {
+                                    "type": "Interface",
+                                    "indexSignature": {
+                                        "keyType": "String",
+                                        "type": {
+                                            "type": "Number"
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    }
                 }
             ]
+        },
+        "PtlAddArticle/Article": {
+            "type": "IndexedAccess",
+            "index": "Article",
+            "objectType": {
+                "type": "Reference",
+                "target": "../db/Schema/Blog"
+            }
         },
         "PtlAddArticle/ResAddArticle": {
             "type": "Interface",
@@ -173,6 +229,14 @@ export const serviceProto: ServiceProto<ServiceType> = {
                         "type": "Number"
                     },
                     "optional": true
+                },
+                {
+                    "id": 1,
+                    "name": "brief",
+                    "type": {
+                        "type": "Boolean"
+                    },
+                    "optional": true
                 }
             ]
         },
@@ -185,46 +249,80 @@ export const serviceProto: ServiceProto<ServiceType> = {
                     "type": {
                         "type": "Array",
                         "elementType": {
-                            "type": "IndexedAccess",
-                            "index": "Article",
-                            "objectType": {
-                                "type": "Reference",
-                                "target": "../db/Schema/Blog"
-                            }
+                            "type": "Intersection",
+                            "members": [
+                                {
+                                    "id": 0,
+                                    "type": {
+                                        "target": {
+                                            "type": "Reference",
+                                            "target": "PtlgetArticle/Article"
+                                        },
+                                        "keys": [
+                                            "content"
+                                        ],
+                                        "type": "Omit"
+                                    }
+                                },
+                                {
+                                    "id": 1,
+                                    "type": {
+                                        "type": "Interface",
+                                        "properties": [
+                                            {
+                                                "id": 0,
+                                                "name": "content",
+                                                "type": {
+                                                    "type": "IndexedAccess",
+                                                    "index": "content",
+                                                    "objectType": {
+                                                        "type": "Reference",
+                                                        "target": "PtlgetArticle/Article"
+                                                    }
+                                                },
+                                                "optional": true
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
             ]
         },
-        "PtlgetTag/ReqgetTag": {
-            "type": "Interface"
-        },
-        "PtlgetTag/ResgetTag": {
-            "type": "Interface",
-            "properties": [
-                {
-                    "id": 0,
-                    "name": "tag",
-                    "type": {
-                        "type": "Array",
-                        "elementType": {
-                            "type": "String"
-                        }
-                    }
-                }
-            ]
+        "PtlgetArticle/Article": {
+            "type": "IndexedAccess",
+            "index": "Article",
+            "objectType": {
+                "type": "Reference",
+                "target": "../db/Schema/Blog"
+            }
         },
         "PtlgetTagCount/ReqgetTagCount": {
             "type": "Interface"
         },
         "PtlgetTagCount/ResgetTagCount": {
             "type": "Interface",
-            "indexSignature": {
-                "keyType": "String",
-                "type": {
-                    "type": "Number"
+            "extends": [
+                {
+                    "id": 0,
+                    "type": {
+                        "target": {
+                            "type": "IndexedAccess",
+                            "index": "State",
+                            "objectType": {
+                                "type": "Reference",
+                                "target": "../db/Schema/Blog"
+                            }
+                        },
+                        "keys": [
+                            "tagSize"
+                        ],
+                        "type": "Pick"
+                    }
                 }
-            }
+            ]
         }
     }
 };

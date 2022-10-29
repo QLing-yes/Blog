@@ -3,6 +3,7 @@ import { ReqAddArticle, ResAddArticle } from "../shared/protocols/PtlAddArticle"
 import { MDB } from "../models/Global";
 
 let ID: number = 0;
+const reg = new RegExp('<[^<>]+>', 'g');
 /** 添加文章 */
 export default async function (call: ApiCall<ReqAddArticle, ResAddArticle>) {
     const errmsg = sizeLimit(call.req.tag, 20)
@@ -14,39 +15,50 @@ export default async function (call: ApiCall<ReqAddArticle, ResAddArticle>) {
         const Last = await last(["ID"]);
         ID = (Last[0]?.ID || 0) + 1;
     }
-    call.req.tag = Array.from(new Set(call.req.tag.map(e => e.toLowerCase())));
-    
+
+    const { brief, content, tag } = call.req;
+    call.req.tag = Array.from(new Set(tag.map(e => e.toLowerCase())));
+    const Brief = (brief || content.value.replace(reg, '')).substring(0, 60);
     const Doc = {
-        'insertOne': {
-            'document': { ...call.req, ID, time: Date.now() }
+        insertOne: {
+            document: {
+                ...call.req,
+                tag: call.req.tag.toString(),
+                ID, time: Date.now(),
+                brief: Brief
+            }
         }
     }
+    
     MDB.bindCB(Doc, (doc, _err) => {
         if (_err) {
             call.error(_err.err.errmsg);
         }
         else {
             ID += 1;
-            call.succ({ _id: doc._id.toString() })
-            createTagIndex(call.req.tag)
+            call.succ({ _id: doc._id.toString() });
+            UpTagSize(call.req.tag);
         }
     })
-    MDB.PushTaskFlow('Blog', 'Article', [Doc])
+    MDB.PushTaskFlow('Blog', 'Article', [Doc]);
 }
-/** 动态创建索引(标签tag) */
-async function createTagIndex(tag: string[]) {
-    const col = MDB.Coll('Blog', 'Article');
-    const I = await col.indexes()
-    const key = I.map(({ name }) => name)
-    for (const v of tag) {
-        if (!key.includes(v)) {
-            col.createIndex({ "tag": 1 }, {
-                name: "tag_" + v,
-                background: true,
-                partialFilterExpression: { tag: { $eq: v } }
-            })
-        }
-    }
+/** 更新集合tag标签大小 */
+function UpTagSize(tag: string[]) {
+    setImmediate(() => {
+        const update: Record<string, number> = {};
+        tag.forEach((e) => {
+            update['tagSize.' + e] = 1;
+        })
+        MDB.PushTaskFlow('Blog', 'State', [
+            {
+                updateOne: {
+                    filter: { 'tagSize': { $exists: true } },
+                    update: { $inc: update },
+                    upsert: true
+                }
+            },
+        ])
+    })
 }
 /** string[] 字符串长度校验 */
 function sizeLimit(tag: string[], size: number) {

@@ -12,7 +12,6 @@ info.value = [
     <span class="title">公告</span>
     <div class="info">
       <span class="mark">&#xe643;</span>
-      132234
     </div>
     <span class="title">博客信息</span>
     <div class="info">
