@@ -21,15 +21,11 @@ let imgWH = computed(() => {
 
 function slice(item: typeof ArticleList.value[0]) {
   const { time, title, tag, brief } = item
-  return [
-    new Date(time).toDateString(),
-    title,
-    tag.toString(),
-    brief,
-  ]
+  return [new Date(time).toDateString(), title, tag.toString(), brief]
 }
-function rows() {
-  return Math.floor(Math.random() * 3 + 1)
+
+function read(item: typeof ArticleList.value[0]) {
+  console.log(item)
 }
 </script>
 <template>
@@ -41,6 +37,7 @@ function rows() {
     <div>
       <card
         v-for="(item, i) in ArticleList"
+        @click="read(item)"
         :key="item.ID"
         :rows="1"
         class="card"

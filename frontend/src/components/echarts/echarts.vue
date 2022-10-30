@@ -6,10 +6,9 @@ import { getTagCount } from '@/shared/api/api'
 
 const isPC = inject('isPC')
 const A = ref<HTMLElement>()
-// let myChart: typeof echarts
 async function Chart() {
   getTagCount().then((e) => {
-    if (e.err) return;
+    if (e.err) return
     let data: PieSeriesOption['data'] = []
     for (let name in e.res.tagSize) {
       data.push({ name, value: e.res.tagSize[name] })
@@ -63,17 +62,13 @@ async function Chart() {
         },
       ],
     }
-
-    useChart(A.value!, option)
+    const myChart = useChart(A.value!, option)
+    myChart.on('click', (e) => {
+      const { name } = e
+      console.log(e)
+    })
   })
 }
-// function v() {
-//   let d = []
-//   for (let i = 0; i < 13; i++) {
-//     d.push({ value: Math.random(), name: '分类' + i })
-//   }
-//   return d
-// }
 nextTick(async () => {
   Chart()
 })

@@ -8,7 +8,9 @@ import { Guard } from "./models/Flow/Flow";
 const server = new HttpServer(serviceProto, {
     port: 3000,
     // Remove this to use binary mode (remove from the client too)
-    json: true
+    json: true,
+    // logReqBody: false,
+    logResBody: false,
 });
 
 async function init() {

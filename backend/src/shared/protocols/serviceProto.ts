@@ -1,7 +1,7 @@
-import type { ServiceProto } from 'tsrpc-proto';
-import type { ReqAddArticle, ResAddArticle } from './PtlAddArticle';
-import type { ReqgetArticle, ResgetArticle } from './PtlgetArticle';
-import type { ReqgetTagCount, ResgetTagCount } from './PtlgetTagCount';
+import { ServiceProto } from 'tsrpc-proto';
+import { ReqAddArticle, ResAddArticle } from './PtlAddArticle';
+import { ReqgetArticle, ResgetArticle } from './PtlgetArticle';
+import { ReqgetTagCount, ResgetTagCount } from './PtlgetTagCount';
 
 export interface ServiceType {
     api: {
@@ -24,7 +24,7 @@ export interface ServiceType {
 }
 
 export const serviceProto: ServiceProto<ServiceType> = {
-    "version": 25,
+    "version": 26,
     "services": [
         {
             "id": 4,
@@ -235,6 +235,22 @@ export const serviceProto: ServiceProto<ServiceType> = {
                     "name": "brief",
                     "type": {
                         "type": "Boolean"
+                    },
+                    "optional": true
+                },
+                {
+                    "id": 2,
+                    "name": "search",
+                    "type": {
+                        "type": "String"
+                    },
+                    "optional": true
+                },
+                {
+                    "id": 3,
+                    "name": "field",
+                    "type": {
+                        "type": "String"
                     },
                     "optional": true
                 }

@@ -30,7 +30,7 @@ export function useChart(el: HTMLElement, option: EChartsOption, renderer?: rend
         })
     })
 
-    return echarts;
+    return Chart;
 }
 // showLoading()//显示图表加载
 // hideLoading()//隐藏图表加载

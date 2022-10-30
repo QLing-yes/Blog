@@ -7,13 +7,27 @@ import { getTagCount } from '@/shared/api/api'
 let cardList = ref<string[][]>([])
 getTagCount().then((e) => {
   for (let key in e.res?.tagSize) {
-    cardList.value.push([img, key, '文章数量' + e.res?.tagSize[key]])
+    cardList.value.push([
+      img,
+      key,
+      '文章数量' + e.res?.tagSize[key],
+      `id,${key}`,
+    ])
   }
 })
 let cardBOX = ref<HTMLElement>()
 nextTick(() => {
   catchScroll(cardBOX.value!)
 })
+
+function read(key: string) {
+  const l = key.split(',')
+  if (l[0] == 'tag') {
+    console.log(l)
+  } else if (l[0] == 'id') {
+    console.log(l)
+  }
+}
 </script>
 <template>
   <div class="focus">
@@ -23,6 +37,7 @@ nextTick(() => {
         :img="item[0]"
         :title="item[1]"
         :subtitle="item[2]"
+        @click="read(item[3])"
         v-for="item in cardList"
       ></card>
     </div>
