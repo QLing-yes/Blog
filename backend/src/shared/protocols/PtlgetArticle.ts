@@ -7,6 +7,8 @@ export interface ReqgetArticle {
     //文章匹配
     search?: string
     field?: string
+    //匹配ID
+    ID?: number
 }
 
 export interface ResgetArticle {

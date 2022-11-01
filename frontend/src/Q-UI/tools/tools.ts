@@ -6,6 +6,16 @@ export function debounce() {
         timer = setTimeout(callback, wait)
     }
 }
+/** 节流
+ * @param CB 回调
+ * @param cancel (保存返回值并赋值给"cancel")
+ * @param t 延时
+ */
+export function throttle(CB: () => void, cancel?: NodeJS.Timeout, t?: number): NodeJS.Timeout {
+    clearTimeout(cancel);
+    cancel = setTimeout(CB, t);
+    return cancel;
+}
 /** 类型判断 */
 export function isType(obj: any) {
     if (obj !== obj) return 'NaN';

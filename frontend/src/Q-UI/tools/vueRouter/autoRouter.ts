@@ -33,4 +33,8 @@ export function RoutesTable(removeHead: string, modules: Record<string, () => Pr
     }
     return Table;
 }
+
 // const modules = import.meta.glob('../../page/*/*.vue');
+// FindRoute('/page1/')!.meta = {
+//     s: 11
+// }

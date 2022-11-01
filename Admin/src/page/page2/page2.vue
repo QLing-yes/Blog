@@ -6,7 +6,6 @@ import { isType } from '@/Q-UI/tools/tools'
 import { Plus } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import { client } from '@/shared/api/client'
-import { getTagCount } from '@/shared/api/api'
 import { State } from '@/models/State/State'
 
 const cover = {

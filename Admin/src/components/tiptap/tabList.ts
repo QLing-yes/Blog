@@ -1,7 +1,7 @@
 import type { Editor } from "@tiptap/vue-3";
 type list = {
-    name?: string //Active菜单名称
-    attributes?: {} //Active属性选项
+    name?: string //Active 菜单名称
+    attributes?: {} //Active 属性选项
     attr: {
         tip?: string //小提示内容
         more?: boolean //是否更多功能框
@@ -97,7 +97,7 @@ export function tabList(editor: Editor): list[][] {
     return tab;
 }
 
-//对齐方式
+/** 对齐方式 */
 function Align(editor: Editor) {
     let icon = ['\ue712','\ue711','\ue715']
     let name = ['left','center','right']
@@ -117,7 +117,7 @@ function Align(editor: Editor) {
     }
     return list;
 }
-//h1-h6
+/** h1-h6 */
 function Heading(editor: Editor) {
     let icon = ['\ue613', '\ue719', '\ue61a', '\ue618', '\ue60e', '\ue616']
     let list: list[] = []

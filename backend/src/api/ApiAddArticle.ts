@@ -24,12 +24,13 @@ export default async function (call: ApiCall<ReqAddArticle, ResAddArticle>) {
             document: {
                 ...call.req,
                 tag: call.req.tag.toString(),
-                ID, time: Date.now(),
+                ID,
+                time: Date.now(),
                 brief: Brief
             }
         }
     }
-    
+
     MDB.bindCB(Doc, (doc, _err) => {
         if (_err) {
             call.error(_err.err.errmsg);
@@ -52,7 +53,7 @@ function UpTagSize(tag: string[]) {
         MDB.PushTaskFlow('Blog', 'State', [
             {
                 updateOne: {
-                    filter: { 'tagSize': { $exists: true } },
+                    filter: { '_id': { $exists: true } },
                     update: { $inc: update },
                     upsert: true
                 }

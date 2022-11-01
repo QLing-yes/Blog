@@ -1,17 +1,22 @@
 <script lang="ts" setup>
-import { inject, nextTick, onMounted, onUnmounted, ref, unref } from 'vue'
+import { inject, nextTick, onMounted, onUnmounted, ref, unref, watch } from 'vue'
 import type { EChartsOption, PieSeriesOption } from 'echarts'
 import { useChart, echarts } from '@/Q-UI/echarts/main'
-import { getTagCount } from '@/shared/api/api'
+import { Basic } from '@/models/State/State'
+import { useRouter } from 'vue-router';
 
 const isPC = inject('isPC')
 const A = ref<HTMLElement>()
+const router = useRouter()
+
 async function Chart() {
-  getTagCount().then((e) => {
-    if (e.err) return
-    let data: PieSeriesOption['data'] = []
-    for (let name in e.res.tagSize) {
-      data.push({ name, value: e.res.tagSize[name] })
+  watch(Basic.isSucc, (v, ol) => {
+    if (!v) return;
+    const tagSize = Basic.value.tagSize!
+    const data: PieSeriesOption['data'] = []
+
+    for (let name in tagSize) {
+      data.push({ name, value: tagSize[name] })
     }
 
     const option: EChartsOption = {
@@ -31,7 +36,7 @@ async function Chart() {
       },
       series: [
         {
-          name: '标签',
+          name: 'tag',
           type: 'pie',
           radius: ['20%', '70%'],
           center: ['42%', '50%'],
@@ -51,9 +56,9 @@ async function Chart() {
           },
           label: !isPC
             ? {
-                show: false,
-                position: 'center',
-              }
+              show: false,
+              position: 'center',
+            }
             : {},
           labelLine: {
             show: true,
@@ -64,10 +69,10 @@ async function Chart() {
     }
     const myChart = useChart(A.value!, option)
     myChart.on('click', (e) => {
-      const { name } = e
-      console.log(e)
+      const { name } = e;
+      router.push({ path: '/Search', query: { field: 'tag', query: name, } });
     })
-  })
+  }, { immediate: true })
 }
 nextTick(async () => {
   Chart()
@@ -83,9 +88,11 @@ nextTick(async () => {
   flex: 0.8;
   // background-color: aquamarine;
   contain: strict;
+
   svg {
     content-visibility: auto;
   }
+
   canvas {
     content-visibility: auto;
   }

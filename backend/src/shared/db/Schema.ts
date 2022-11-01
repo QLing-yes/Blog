@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb"
 
 export interface Blog {
   //文章集合
@@ -15,8 +16,13 @@ export interface Blog {
     coverImg: string
   }
   State: {
-    // 文章标签
+    // _id: ObjectId
+    // 文章标签统计
     tagSize: { [key: string]: number }
+    basic: {
+      //公告通知
+      notice: string
+    }
   }
 }
 

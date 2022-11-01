@@ -1,15 +1,16 @@
 import type { RouteRecordRaw } from "vue-router";
 import { RoutesTable, initRoute } from "@/Q-UI/tools/vueRouter/autoRouter";
 const modules_1 = import.meta.glob('../../page/*/*.vue');
+const List = () => import("@/components/List.vue");
+
 /** 路由表 */
 export const Table = routes()
 export const { Router, FindRoute } = new initRoute(Table);
 
-Router.beforeEach((to, from, next) => {
-    // const { path } = to;
-    // if (path == '/') next({ path: '/page1/' })
-    next()
-})
+// Router.beforeEach((to, from, next) => {
+//     // const { path } = to;
+//     next()
+// })
 console.log('路由表', Router.getRoutes());
 
 // FindRoute('/page1/')!.meta = {
@@ -18,6 +19,10 @@ console.log('路由表', Router.getRoutes());
 
 function routes(): RouteRecordRaw[] {
     return [
+        {
+            path: '/',
+            component: List
+        },
         ...RoutesTable('../../page', modules_1)
     ]
 }

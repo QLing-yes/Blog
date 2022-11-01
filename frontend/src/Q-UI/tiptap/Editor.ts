@@ -15,7 +15,7 @@ export let options: Partial<EditorOptions> | undefined = {
             types: ['heading', 'paragraph'],
         })
     ],
-    content: '<p>在这里开始你的创作吧!</p>',
+    content: '',
     autofocus: true,
     editable: true,
     injectCSS: false,

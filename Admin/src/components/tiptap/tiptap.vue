@@ -4,7 +4,7 @@ import menus from './menus.vue'
 import { nextTick, onBeforeUnmount, ref } from 'vue'
 // import { Editor } from '@tiptap/core'
 import { useEditor, Editor, EditorContent } from '@tiptap/vue-3'
-import { options } from '@/components/tiptap/Editor'
+import { options } from '@/Q-UI/tiptap/Editor'
 
 const editor: Editor = new Editor({
   ...options,

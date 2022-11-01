@@ -3,6 +3,7 @@ import card from '@/Q-UI/Q-card/card_2.vue'
 import Load from '@/components/autoLoad.vue'
 import { computed, inject, ref } from 'vue'
 import { ArticleList, nextPage } from '@/models/State/State'
+import { Router, FindRoute } from '@/models/router/vueRouter'
 
 const isPC = inject('isPC')
 // const reg = new RegExp('<[^<>]+>', 'g')
@@ -25,7 +26,7 @@ function slice(item: typeof ArticleList.value[0]) {
 }
 
 function read(item: typeof ArticleList.value[0]) {
-  console.log(item)
+  Router.push({ path: '/Article', query: { ID: item.ID } });
 }
 </script>
 <template>
@@ -35,16 +36,8 @@ function read(item: typeof ArticleList.value[0]) {
       <span @click="row = !row">切换布局</span>
     </label>
     <div>
-      <card
-        v-for="(item, i) in ArticleList"
-        @click="read(item)"
-        :key="item.ID"
-        :rows="1"
-        class="card"
-        :content="slice(item)"
-        :src="item.coverImg"
-        v-bind="imgWH"
-      ></card>
+      <card v-for="(item, i) in ArticleList" @click="read(item)" :key="item.ID" :rows="1" class="card"
+        :content="slice(item)" :src="item.coverImg" v-bind="imgWH"></card>
     </div>
     <Load @load="nextPage"></Load>
   </div>
@@ -57,7 +50,8 @@ function read(item: typeof ArticleList.value[0]) {
   justify-content: space-between;
   user-select: none;
   contain: content;
-  & > span {
+
+  &>span {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
@@ -68,6 +62,7 @@ function read(item: typeof ArticleList.value[0]) {
     color: #66666697;
   }
 }
+
 .List {
   contain: content;
   border-radius: 10px;
@@ -79,35 +74,41 @@ function read(item: typeof ArticleList.value[0]) {
   padding-top: 10px;
   padding-bottom: 20px;
 }
-.List > div {
+
+.List>div {
   flex: 1;
   flex-wrap: wrap;
   justify-content: space-around;
-  & > .card {
+
+  &>.card {
     contain: content;
     content-visibility: auto;
     border-radius: 10px;
     border: 1px solid rgba(#dee2e6, 0.5);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
   }
+
   @media (min-width: 768px) {
-    & > .card1 {
+    &>.card1 {
       height: 300px;
       width: 680px;
       margin: 20px;
     }
-    & > .card2 {
+
+    &>.card2 {
       margin: 15px;
       width: 300px;
     }
   }
+
   @media (max-width: 768px) {
-    & > .card1 {
+    &>.card1 {
       height: 35vw;
       width: 85vw;
       margin: 13px;
     }
-    & > .card2 {
+
+    &>.card2 {
       margin: 10px 0px 0px 10px;
       width: 150px;
       // align-self: flex-end;

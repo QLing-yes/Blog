@@ -4,7 +4,7 @@ let { abs, trunc, PI } = Math;
 type target = string | HTMLElement;
 type transition = { top: number, left: number };
 /** 获取子元素在滚动区域的静止位置 */
-function getElementTL(_parent: HTMLElement, _sub: HTMLElement): transition {
+export function getElementTL(_parent: HTMLElement, _sub: HTMLElement): transition {
     const parent = _parent.getBoundingClientRect();
     const sub = _sub.getBoundingClientRect();
     return {
@@ -29,7 +29,7 @@ function getElement(el: target) {
  * @param target 子元素 | css选择器 | [x,y]
  * @param duration 持续时间
  */
-export function $scrollTo(el: target, target: target | [number, number], duration?: number) {
+export function $scrollTo(el: target, target: target | [number, number], duration = 500) {
     if (el && target) {
         el = getElement(el);
         let start = getOffset(el);
@@ -40,11 +40,11 @@ export function $scrollTo(el: target, target: target | [number, number], duratio
                 top: target[1]
             } :
             getElementTL(el, getElement(target));
-
+        if (!duration) { (el as HTMLElement).scrollTo(to); }
         anime({
             targets: start,
             ...to,
-            duration: duration || 500,
+            duration: duration,
             easing: 'linear',
             update() {
                 (el as HTMLElement).scrollTo(start);
