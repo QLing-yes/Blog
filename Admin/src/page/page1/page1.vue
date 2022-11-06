@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import tiptap from '@/components/tiptap/tiptap.vue'
+import tiptap from '@/Q-UI/tiptap/tiptap.vue'
 import newTag from '@/components/newTag.vue'
 import ChooseFile from '@/Q-UI/ChooseFile/ChooseFile.vue'
 import { isType } from '@/Q-UI/tools/tools'
@@ -33,6 +33,9 @@ async function submit() {
   const article = getArticle()
   let ret = await client.callApi('AddArticle', article)
   console.log('响应', ret)
+  if (ret.isSucc) {
+    alert("OK");
+  }
 }
 //获取文章信息
 function getArticle() {

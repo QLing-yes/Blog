@@ -31,10 +31,13 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped lang="scss">
+@import './tiptap.scss';
+
 .head {
   position: fixed;
   width: 100%;
 }
+
 .menus {
   display: flex;
   height: 40px;
@@ -44,17 +47,13 @@ onBeforeUnmount(() => {
   // overflow-y: hidden;
   contain: size layout;
 }
-.editor {
-  flex: 1;
-  &:deep(.ProseMirror) {
-    outline: none;
-  }
-}
+
 .tiptap {
   display: flex;
   flex-direction: column;
   position: relative;
-  & > .content {
+
+  &>.content {
     margin-top: 40px;
     display: flex;
     flex: 1;
@@ -68,10 +67,12 @@ onBeforeUnmount(() => {
   width: 3px;
   height: 4px;
 }
+
 ::-webkit-scrollbar-thumb {
   background-color: #0088ff6a;
   border-radius: 4px;
 }
+
 @media (max-width: 750px) {
   ::-webkit-scrollbar {
     width: 0px;

@@ -52,7 +52,8 @@ function date(time?: number) {
                 <span>{{ date(Article?.time) }}</span>
             </span>
         </div>
-        <EditorContent :editor="editor" class="m Editor" />
+        <EditorContent :editor="editor" class="m editor" />
+        <!-- <EditorContent :editor="editor" class="m Editor" /> -->
         <div class="m footer">
             <span class="info">
                 <span class="icon">&#xe652;</span>
@@ -63,6 +64,7 @@ function date(time?: number) {
 </template>
 
 <style lang="scss" scoped>
+@import "../../Q-UI/tiptap/tiptap.scss";
 .Content {
     display: flex;
     flex: 1;

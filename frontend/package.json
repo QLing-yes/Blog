@@ -10,6 +10,15 @@
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
   },
   "dependencies": {
+    "@tiptap/extension-blockquote": "^2.0.0-beta.202",
+    "@tiptap/extension-bullet-list": "^2.0.0-beta.202",
+    "@tiptap/extension-code-block-lowlight": "^2.0.0-beta.202",
+    "@tiptap/extension-horizontal-rule": "^2.0.0-beta.202",
+    "@tiptap/extension-link": "^2.0.0-beta.202",
+    "@tiptap/extension-list-item": "^2.0.0-beta.202",
+    "@tiptap/extension-ordered-list": "^2.0.0-beta.202",
+    "@tiptap/extension-task-item": "^2.0.0-beta.202",
+    "@tiptap/extension-task-list": "^2.0.0-beta.202",
     "@tiptap/extension-text-align": "^2.0.0-beta.199",
     "@tiptap/extension-underline": "^2.0.0-beta.199",
     "@tiptap/starter-kit": "^2.0.0-beta.199",
@@ -17,6 +26,7 @@
     "@types/animejs": "^3.1.5",
     "animejs": "^3.2.1",
     "echarts": "^5.3.3",
+    "lowlight": "^2.7.0",
     "pinia": "^2.0.17",
     "tsrpc-browser": "^3.4.8",
     "vue": "^3.2.37",

@@ -1,1 +1,0 @@
-import{_ as s,i as t,v as _,q as o,s as c,j as a}from"./index.ec1c96eb.js";const d={},n=e=>(o("data-v-28d8436a"),e=e(),c(),e),p={class:"Empty"},r=n(()=>a("span",null,"None",-1)),i=[r];function l(e,m){return _(),t("div",p,i)}const f=s(d,[["render",l],["__scopeId","data-v-28d8436a"]]);export{f as default};

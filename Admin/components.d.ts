@@ -22,14 +22,11 @@ declare module '@vue/runtime-core' {
     ElMenuItemGroup: typeof import('element-plus/es')['ElMenuItemGroup']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElTag: typeof import('element-plus/es')['ElTag']
-    Menus: typeof import('./src/components/tiptap/menus.vue')['default']
     NavBar: typeof import('./src/components/Layout/navBar/navBar.vue')['default']
     NewTag: typeof import('./src/components/newTag.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Sidebar: typeof import('./src/components/Layout/sidebar/sidebar.vue')['default']
     SubSidebar: typeof import('./src/components/Layout/subSidebar/subSidebar.vue')['default']
-    Tab: typeof import('./src/components/tiptap/tab.vue')['default']
-    Tiptap: typeof import('./src/components/tiptap/tiptap.vue')['default']
   }
 }

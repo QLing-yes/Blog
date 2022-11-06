@@ -9,7 +9,7 @@ type list = {
         now?: boolean //选中?
         icon?: string//图标
     },
-    event?: Function
+    event?: () => void
     list?: list[]
 }
 export function tabList(editor: Editor): list[][] {
@@ -93,14 +93,88 @@ export function tabList(editor: Editor): list[][] {
             list: Align(editor)
         },
     ])
-    
+    tab.push([
+        {
+            name: '',
+            attr: {
+                tip: "'分割线'",
+                icon: '\ue640',
+            },
+            event() {
+                editor.commands.setHorizontalRule()
+                // editor.chain().focus().setHorizontalRule().run()
+            },
+        },
+        {
+            attr: {
+                icon: '\ue624',
+                tip: "'清单列表'",
+                more: true
+            },
+            list: ListItem(editor)
+        },
+    ])
+    tab.push([
+        {
+            name: 'blockquote',
+            attr: {
+                icon: '\ue611',
+                tip: "'引用'",
+            },
+            event() {
+                editor.commands.toggleBlockquote()
+            }
+        },
+        {
+            name: 'codeBlock',
+            attr: {
+                icon: '{ }',
+                tip: "'代码块'",
+            },
+            event() {
+                editor.commands.toggleCodeBlock()
+            }
+        },
+        {
+            name: 'link',
+            attr: {
+                icon: '\ue627',
+                tip: "'取消超链接'",
+            },
+            event() {
+                editor.commands.unsetLink()
+            }
+        },
+    ])
     return tab;
 }
 
+/** 列表清单 */
+function ListItem(editor: Editor) {
+    let icon = ['\ue624', '\ue626', '\ue628']
+    let name = ['bulletList', 'orderedList', 'taskList']
+    let tip = ["无序列表", "有序列表", "任务列表"]
+    let f = [() => { editor.commands.toggleBulletList() }, () => { editor.commands.toggleOrderedList() }, () => { editor.commands.toggleTaskList() }]
+
+    let list: list[] = []
+    for (let i = 0; i < icon.length; i++) {
+        list.push({
+            name: name[i],
+            attr: {
+                tip: tip[i],
+                icon: icon[i],
+            },
+            event() {
+                f[i]()
+            },
+        },)
+    }
+    return list;
+}
 /** 对齐方式 */
 function Align(editor: Editor) {
-    let icon = ['\ue712','\ue711','\ue715']
-    let name = ['left','center','right']
+    let icon = ['\ue712', '\ue711', '\ue715']
+    let name = ['left', 'center', 'right']
     let list: list[] = []
     for (let i = 0; i < icon.length; i++) {
         let attr = { textAlign: name[i] };
