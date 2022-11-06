@@ -1,6 +1,10 @@
 {
   "extends": "./tsconfig.app.json",
-  "exclude": [],
+  "exclude": [
+    "src/Q-UI/**/nodejs",
+    "src/assets/font/.font-spider",
+    "src/assets/font/font.html"
+  ],
   "compilerOptions": {
     "composite": true,
     "lib": [],

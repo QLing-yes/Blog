@@ -10,7 +10,6 @@ import Notice from '@/components/Notice.vue'
 import echarts from '@/components/echarts/echarts.vue'
 import focus from '@/components/focus.vue'
 import { unfold } from '@/models/State/State';
-
 const isPC = matchMedia('(min-width: 768px)').matches;
 provide('isPC', isPC);
 // const route = useRoute()
@@ -46,8 +45,6 @@ router.beforeEach((to, from, next) => {
       <router-view v-slot="{ Component, route }">
         <transition name="fade" mode="out-in">
           <component :is="Component" />
-          <!-- <List v-else-if="route.path == '/'"></List> -->
-          <!-- <span v-else>待定...</span> -->
         </transition>
       </router-view>
     </layout_1>

@@ -16,7 +16,7 @@ export default async function (call: ApiCall<ReqBasic, ResBasic>) {
     const data = col.findOne({});
     data.then(async e => {
         call.succ({
-            ...e!,
+            ...e,
             Articles: await Count(),
             StartTime: StartTime
         })

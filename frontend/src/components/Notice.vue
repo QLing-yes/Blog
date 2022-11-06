@@ -7,7 +7,7 @@ const notice = ref('');
 watch(Basic.isSucc, (v, ol) => {
   if (v) {
     const { Articles, StartTime, basic } = Basic.value;
-    notice.value = basic!.notice;
+    notice.value = basic?.notice || '';
     const s = (Date.now() - StartTime!) / 1000;
     info.push(['\ue643', "文章数", Articles!]);
     info.push(['\ue643', "评论数", "待开发"]);

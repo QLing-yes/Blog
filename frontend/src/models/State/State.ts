@@ -15,7 +15,7 @@ export const Basic = {
 
 apiBasic().then((e) => {
     if (e.err) { return; }
-    Basic.value = e.res!
+    Basic.value = e.res
     Basic.isSucc.value = e.isSucc;
 })
 nextPage()
@@ -24,6 +24,10 @@ export function nextPage() {
     const start = ArticleList.value.at(-1)?.ID || 0;
     getArticle({ start, brief: true }).then((e) => {
         const { err, res } = e;
+        if (err) {
+            console.error(err);
+            return
+        }
         const { Article } = res!
 
         if (start) while (Article.length > 0) ArticleList.value.push(...Article.splice(0, 9000));

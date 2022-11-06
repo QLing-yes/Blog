@@ -19,8 +19,10 @@ export class MongoDB<T extends DBSchema> {
   async InitDB(uri: string) {
     this.client = new MongoClient(uri);
     console.log('MongoDB 连接中...');
-    await this.client.connect();
-    console.log('MongoDB 已连接');
+    await this.client.connect()
+      .then(() => { console.log('MongoDB 已连接'); })
+      .catch(() => { console.log('MongoDB 连接失败'); })
+
   }
   Db(db: key<T>) {
     return this.db[db] || (this.db[db] = this.client.db(db));

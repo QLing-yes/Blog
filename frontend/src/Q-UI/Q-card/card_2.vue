@@ -39,6 +39,7 @@ const props = defineProps<prop>()
   -webkit-line-clamp: $n;
 }
 .date {
+  font-family: sans-serif;
   color: #918888;
   font-size: 0.85em;
 }
@@ -58,8 +59,8 @@ const props = defineProps<prop>()
   font-size: 0.85em;
 }
 .content {
+  font-family: sans-serif;
   color: #626262;
-  text-indent: 1em;
   margin-top: 8px;
   contain: content;
   display: -webkit-box;

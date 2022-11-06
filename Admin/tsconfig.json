@@ -5,6 +5,11 @@
     "src/**/*",
     "src/**/*.vue"
   ],
+  "exclude": [
+    "src/Q-UI/**/nodejs",
+    "src/Q-UI/echarts",
+    "src/Q-UI/tools/anima.ts",
+  ],
   "compilerOptions": {
     "types": [
       "element-plus/global"

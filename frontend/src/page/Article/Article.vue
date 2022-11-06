@@ -31,7 +31,6 @@ onMounted(() => {
         Article.value = res.Article[0];
         //主体内容
         editor.commands.setContent(Article.value.content?.value || '');
-        console.log("ID", ID);
     })
 })
 onBeforeUnmount(() => {

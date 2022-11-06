@@ -1,7 +1,4 @@
-@font-face {
-  font-family: 'GermaniaOne';
-  src: url('@font/GermaniaOne.ttf');
-}
+@import url("font-spider.css");
 /* CDN 服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
 @font-face {
   font-family: 'blog'; /* Project id 3613658 */
@@ -11,5 +8,5 @@
 /* CDN 服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
 @font-face {
   font-family: 'ttf_icon';  /* Project id 3626187 */
-  src: url('//at.alicdn.com/t/c/font_3626187_jik1klocc5.woff2?t=1667280795605') format('woff2');
+  src: url('//at.alicdn.com/t/c/font_3626187_25fia7hok0r.woff2?t=1667364871478') format('woff2');
 }

@@ -29,7 +29,7 @@ export interface ServiceType {
 }
 
 export const serviceProto: ServiceProto<ServiceType> = {
-    "version": 29,
+    "version": 30,
     "services": [
         {
             "id": 9,
@@ -197,10 +197,13 @@ export const serviceProto: ServiceProto<ServiceType> = {
             "type": "Interface",
             "extends": [
                 {
-                    "id": 0,
+                    "id": 1,
                     "type": {
-                        "type": "Reference",
-                        "target": "basic/PtlBasic/State"
+                        "type": "Partial",
+                        "target": {
+                            "type": "Reference",
+                            "target": "basic/PtlBasic/State"
+                        }
                     }
                 }
             ],

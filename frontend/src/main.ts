@@ -6,7 +6,6 @@ import '@/main.scss'
 import anime from 'animejs'
 import { Router } from './models/router/vueRouter'
 // import * as echarts from 'echarts'
-
 window.$anime = anime;
 // window.$echarts = echarts;
 

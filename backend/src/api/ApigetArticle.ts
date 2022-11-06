@@ -7,8 +7,8 @@ export default async function (call: ApiCall<ReqgetArticle, ResgetArticle>) {
     let data: ReturnType<typeof searchID>;
 
     if (ID) data = searchID(ID);
-    else if (search) data = searchTxt(search, 30, start, brief, field);
-    else data = nextPage(30, start, brief);
+    else if (search) data = searchTxt(search, 10, start, brief, field);
+    else data = nextPage(10, start, brief);
 
     data.then((result) => {
         call.succ({ Article: result })

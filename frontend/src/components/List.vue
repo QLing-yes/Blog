@@ -4,6 +4,7 @@ import Load from '@/components/autoLoad.vue'
 import { computed, inject, ref } from 'vue'
 import { ArticleList, nextPage } from '@/models/State/State'
 import { Router, FindRoute } from '@/models/router/vueRouter'
+import { getDate } from '@/Q-UI/tools/date'
 
 const isPC = inject('isPC')
 // const reg = new RegExp('<[^<>]+>', 'g')
@@ -22,11 +23,16 @@ let imgWH = computed(() => {
 
 function slice(item: typeof ArticleList.value[0]) {
   const { time, title, tag, brief } = item
-  return [new Date(time).toDateString(), title, tag.toString(), brief]
+  return ['发布于'+date(time), title, tag.toString(), brief]
 }
 
 function read(item: typeof ArticleList.value[0]) {
   Router.push({ path: '/Article', query: { ID: item.ID } });
+}
+function date(time?: number) {
+  if (!time) return '';
+  const { Y, M, D } = getDate(new Date(time));
+  return `${Y}-${M}-${D}`;
 }
 </script>
 <template>
@@ -37,7 +43,8 @@ function read(item: typeof ArticleList.value[0]) {
     </label>
     <div>
       <card v-for="(item, i) in ArticleList" @click="read(item)" :key="item.ID" :rows="1" class="card"
-        :content="slice(item)" :src="item.coverImg" v-bind="imgWH"></card>
+        :content="slice(item)" :src="item.coverImg" v-bind="imgWH">
+      </card>
     </div>
     <Load @load="nextPage"></Load>
   </div>

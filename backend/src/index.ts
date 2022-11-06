@@ -1,4 +1,4 @@
-import "./pathAlias";
+import "./pathAlias/pathAlias";
 import * as path from "path";
 import { HttpServer } from "tsrpc";
 import { serviceProto } from "./shared/protocols/serviceProto";

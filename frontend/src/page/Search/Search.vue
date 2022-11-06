@@ -3,9 +3,13 @@ import { Router, FindRoute } from '@/models/router/vueRouter'
 import { $scrollTo } from '@/Q-UI/tools/anima';
 import { inject, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { unfold } from '@/models/State/State';
+import { ArticleList, unfold } from '@/models/State/State';
 import { throttle } from '@/Q-UI/tools/tools';
 import { getArticle } from '@/shared/api/api';
+import card from "@/components/card/card.vue";
+import Load from "@/components/autoLoad.vue";
+import type { ResgetArticle } from '@/shared/protocols/PtlgetArticle';
+import { getDate } from '@/Q-UI/tools/date';
 type query = { query: string, field: string }
 
 // const router = useRouter()
@@ -14,6 +18,8 @@ const winEl = inject('isPC') ? document.documentElement : document.body;
 const ElSearch = ref<HTMLElement>()
 const Elinput = ref<HTMLElement>()
 const search = ref<string>('')
+const List = ref<ResgetArticle['Article']>([])
+const _field = ref('')
 
 nextTick(() => {
     unfold.value = false;
@@ -30,7 +36,8 @@ onMounted(() => {
     //query:查询内容, field:指定字段
     const { query, field } = route.query as query;
     search.value = query;
-    submit(field);
+    _field.value = field;
+    submit();
 })
 onBeforeUnmount(() => {
     document.removeEventListener("keydown", Press)
@@ -43,28 +50,45 @@ function Press(e: KeyboardEvent) {
     }
 }
 //提交
-let cancel: number;
-function submit(field?: string) {
-    const str = correct(search.value);
-    field = correct(field);
-    if (!str) return;
-    search.value = str;
-    //节流并查询
-    cancel = throttle(() => {
-        getArticle({
-            brief: true,
-            search: str,
-            field
-        }).then((v) => {
-            console.log(v);
-
-        })
-    }, cancel, 800)
+let cancel: ReturnType<typeof throttle>;
+const pageNum = ref(0);
+function submit() {
+    queueMicrotask(() => {
+        const str = correct(search.value);
+        let field = correct(_field.value);
+        if (!str) return;
+        search.value = str;
+        //节流并查询
+        cancel = throttle(() => {
+            getArticle({
+                brief: true,
+                search: search.value,
+                field,
+                start: pageNum.value
+            }).then((v) => {
+                const { err, res } = v;
+                for (let item of res!.Article) {
+                    List.value.push(item);
+                }
+                if (res?.Article.length) {
+                    pageNum.value = res.Article[res.Article.length - 1].ID;
+                } else pageNum.value = 0;
+            })
+        }, cancel, 800)
+    })
 }
 //字符串矫正
 function correct(str?: string) {
     if (!str) return '';
-    return str.substring(0, 30).match(/[a-zA-Z]|[0-9]|[\u4e00-\u9fa5]|./g)?.toString().replace(/,/g, '').trim();
+    return str.substring(0, 30).match(/[a-zA-Z]|[0-9]|[\u4e00-\u9fa5]|[.]/g)?.toString().replace(/,/g, '').trim();
+}
+function date(time?: number) {
+    if (!time) return '';
+    const { Y, M, D } = getDate(new Date(time));
+    return `${Y}-${M}-${D}`;
+}
+function read(item: typeof ArticleList.value[0]) {
+    Router.push({ path: '/Article', query: { ID: item.ID } });
 }
 </script>
 <template>
@@ -77,19 +101,76 @@ function correct(str?: string) {
             <div class="bar">
                 <span>ctrl+k</span>
                 <span>enter</span>
-                <span>中</span>
-                <span>英</span>
-                <span>数字</span>
+                <span>关键词</span>
+                <span>标签</span>
             </div>
         </div>
-        <div class="list">
-            2333
-        </div>
+        <TransitionGroup class="list" name="list" tag="ul">
+            <card class="card" @click="read(item)" :img="item.coverImg" :head="item.title" :date="date(item.time)"
+                v-for="(item, i) in List" :key="item.ID">
+                <span class="line brief">{{ item.brief }}</span>
+                <span class="line tag">
+                    <span class="icon">&#xe652;</span>
+                    {{ item.tag }}
+                </span>
+            </card>
+        </TransitionGroup>
+        <Load v-if="List && pageNum" @load="submit()"></Load>
     </div>
 </template>
 <style lang="scss" scoped>
+.list-enter-active,
+.list-leave-active {
+    transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+}
+
+.icon {
+    font-family: ttf_icon !important;
+}
+
 .list {
     margin: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: 100% !important;
+    }
+}
+
+.card {
+    cursor: pointer;
+    width: 60%;
+    height: 100px;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid;
+    border-image: linear-gradient(to right, #ffffff00, #efefef, #ffffff00) 1;
+}
+
+.tag {
+    font-size: 0.8em;
+}
+
+.brief {
+    -webkit-line-clamp: 2 !important;
+    font-size: 0.9em;
+}
+
+.line {
+    contain: content;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
 }
 
 .Search {

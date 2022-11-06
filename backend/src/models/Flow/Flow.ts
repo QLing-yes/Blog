@@ -1,4 +1,5 @@
 import { ServiceType } from "@src/shared/protocols/serviceProto";
+import { type } from "os";
 import { HttpConnection, HttpServer } from "tsrpc";
 
 type Server = HttpServer<ServiceType>
@@ -13,8 +14,7 @@ export class Guard {
         // 接收数据前
         server.flows.preRecvDataFlow.push((v) => {
             let { ip } = BaseInfo(v);
-            if (!DomainCheck(ip, v)) return undefined;
-
+            if (!IPFrequently(ip, v)) return undefined;
             return v;
         })
     }
@@ -37,12 +37,20 @@ function BaseInfo(v: Flow) {
         serviceName
     }
 }
-/**允许的域*/
-function DomainCheck(ip: string, v?: any) {
-    const Domain = {
-        '127.0.0.1': true
+
+let IPs: Record<string, number | undefined> = {};
+/** 请求频率限制 */
+function IPFrequently(ip: string, call: any) {
+    const now = Date.now();
+    if (IPs[ip]) {
+        const time = now - IPs[ip]!;
+        if (time < 1500) {
+            call.conn.httpRes.end(JSON.stringify({ isSucc: false, err: '请求频繁', }));
+            IPs[ip] = now;
+            return false;
+        }
     }
-    const b = Domain[ip as keyof typeof Domain];
-    if (!b) v?.conn.httpRes.end(JSON.stringify({ err: '非法域名', }));
-    return b;
+    IPs[ip] = now;
+    return true;
 }
+setInterval(() => { IPs = {} }, 5000)
