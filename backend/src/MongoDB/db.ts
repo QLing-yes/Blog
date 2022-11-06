@@ -12,8 +12,8 @@ export class MongoDB<T extends DBSchema> {
   readonly BulkWrite = new Map<string, Doc<T>[]>();
   private CBs = new WeakMap<object, callback>();
 
-  constructor(uri?: string) {
-    if (uri) this.InitDB(uri);
+  constructor(uri: string) {
+    this.InitDB(uri);
     this.ExecutionQueue = this.ExecutionQueue.bind(this);
   }
   async InitDB(uri: string) {

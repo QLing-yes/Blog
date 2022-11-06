@@ -1,9 +1,11 @@
 import { Schema } from '../shared/db/Schema';
 import { MongoDB } from '@MongoDB/db';
+const dbConfig = require("../../assets/db.config.json");
 
+if (!dbConfig) { console.error("数据库配置文件导入错误") }
 export const MDB = new MongoDB<Schema>(
     // 'mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false'
-    'mongodb://root:z123456.@blog.ling-in.top:27017/?authSource=admin'
+    dbConfig.key
 );
 
 setInterval(() => {

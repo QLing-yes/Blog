@@ -1204,22 +1204,22 @@
   "resolved" "https://registry.npmmirror.com/tsbuffer-schema/-/tsbuffer-schema-2.2.0.tgz"
   "version" "2.2.0"
 
-"tsbuffer-validator@^2.1.0":
-  "integrity" "sha512-pI4qqKVVFWOF8nF7wGGT+WzNnOMOb1skhSjigtKiWOzkpVhoiOvyPJamFQvc0MVbhoGTySuVUzp3KFclo4lVxw=="
-  "resolved" "https://registry.npmmirror.com/tsbuffer-validator/-/tsbuffer-validator-2.1.0.tgz"
-  "version" "2.1.0"
+"tsbuffer-validator@^2.1.1":
+  "integrity" "sha512-12JVltPQjv2hZqfd9TZhTjCyQ0bvtRlTXyczOAaH+CnryWI9Twt0i9ZGaM5fb2QMxW5BOhToOIbwO8opDqpCEg=="
+  "resolved" "https://registry.npmjs.org/tsbuffer-validator/-/tsbuffer-validator-2.1.1.tgz"
+  "version" "2.1.1"
   dependencies:
     "k8w-extend-native" "^1.4.6"
     "tsbuffer-schema" "^2.2.0"
     "tslib" "*"
 
-"tsbuffer@^2.2.3":
-  "integrity" "sha512-y09egv1BJr4bDSIau88oH14n5AMN1UtDPZ6Fknmj7vb575Xf6OqK90Z7vKdhHOkTJg/1nkkf2iAz7EvC8WVKzA=="
-  "resolved" "https://registry.npmmirror.com/tsbuffer/-/tsbuffer-2.2.3.tgz"
-  "version" "2.2.3"
+"tsbuffer@^2.2.3", "tsbuffer@^2.2.6":
+  "integrity" "sha512-6kdiUloCXWjQh7gUYxVA1AqkwGXhX1CpRpS7YjfB7C4yxqj4oI4uGsO9vZhQMddG+UFo4TJiy7Wf76/sGz8Xvg=="
+  "resolved" "https://registry.npmjs.org/tsbuffer/-/tsbuffer-2.2.6.tgz"
+  "version" "2.2.6"
   dependencies:
     "k8w-extend-native" "^1.4.6"
-    "tsbuffer-validator" "^2.1.0"
+    "tsbuffer-validator" "^2.1.1"
     "tslib" "*"
 
 "tslib@*", "tslib@^2.1.0":
@@ -1227,19 +1227,19 @@
   "resolved" "https://registry.npmmirror.com/tslib/-/tslib-2.4.0.tgz"
   "version" "2.4.0"
 
-"tsrpc-base-client@^2.1.4":
-  "integrity" "sha512-LS8FXUtbAiTrdYra36TK8sXdcaXzToY8OFAaea/x0XndHntcGigp6Qy7/vj+Az8MlUoOVjvzI69k4K3ln2lcjA=="
-  "resolved" "https://registry.npmmirror.com/tsrpc-base-client/-/tsrpc-base-client-2.1.4.tgz"
-  "version" "2.1.4"
+"tsrpc-base-client@^2.1.10":
+  "integrity" "sha512-R7epPY3uq0jKkduNbSihtz7YtOlpfyHeW2cB7/C6xeSPp1jop5aIknXDjS2qQwhkYncakQF9rEITTCA83W+R8A=="
+  "resolved" "https://registry.npmjs.org/tsrpc-base-client/-/tsrpc-base-client-2.1.10.tgz"
+  "version" "2.1.10"
   dependencies:
     "k8w-extend-native" "^1.4.6"
-    "tsbuffer" "^2.2.3"
+    "tsbuffer" "^2.2.6"
     "tslib" "*"
-    "tsrpc-proto" "^1.4.2"
+    "tsrpc-proto" "^1.4.3"
 
 "tsrpc-cli@^2.4.5":
   "integrity" "sha512-/3MMyGAAuSnZLQVfoRZXI5sfyGakRTk2AfrllvVSUSfGPTr06iU1YAgOATNYEHl+uAj1+QFz3dKT8g3J+wCIcw=="
-  "resolved" "https://registry.npmmirror.com/tsrpc-cli/-/tsrpc-cli-2.4.5.tgz"
+  "resolved" "https://registry.npmjs.org/tsrpc-cli/-/tsrpc-cli-2.4.5.tgz"
   "version" "2.4.5"
   dependencies:
     "chalk" "^4.1.2"
@@ -1259,7 +1259,7 @@
     "typescript" "^4.7.4"
     "typescript-formatter" "^7.2.2"
 
-"tsrpc-proto@^1.4.2":
+"tsrpc-proto@^1.4.2", "tsrpc-proto@^1.4.3":
   "integrity" "sha512-qtkk5i34m9/K1258EdyXAEikU/ADPELHCCXN/oFJ4XwH+kN3kXnKYmwCDblUuMA73V2+A/EwkgUGyAgPa335Hw=="
   "resolved" "https://registry.npmmirror.com/tsrpc-proto/-/tsrpc-proto-1.4.3.tgz"
   "version" "1.4.3"
@@ -1267,16 +1267,16 @@
     "tsbuffer-schema" "^2.2.0"
     "tslib" "*"
 
-"tsrpc@^3.4.5":
-  "integrity" "sha512-aINiMUtxCOVFCtELTQ0b8xuHWLCvzL84KqfYV9ZU98WsNxUvpUZiA9j+0x1rknllxKC/PBsPP5xNAVvC0mjS1A=="
-  "resolved" "https://registry.npmmirror.com/tsrpc/-/tsrpc-3.4.5.tgz"
-  "version" "3.4.5"
+"tsrpc@^3.4.8":
+  "integrity" "sha512-twh2kuTuT0NCySwUjqnji+4yKxiYlZQuT24qaLqjdNMkz9svJaaP0tevtv3/sz0n0r7iapS/43E6LJKAgophHg=="
+  "resolved" "https://registry.npmjs.org/tsrpc/-/tsrpc-3.4.8.tgz"
+  "version" "3.4.8"
   dependencies:
     "@types/ws" "^7.4.7"
     "chalk" "^4.1.2"
-    "tsbuffer" "^2.2.3"
-    "tsrpc-base-client" "^2.1.4"
-    "tsrpc-proto" "^1.4.2"
+    "tsbuffer" "^2.2.6"
+    "tsrpc-base-client" "^2.1.10"
+    "tsrpc-proto" "^1.4.3"
     "uuid" "^8.3.2"
     "ws" "^7.5.9"
 

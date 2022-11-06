@@ -11,10 +11,15 @@ export default async function (call: ApiCall<ReqAddArticle, ResAddArticle>) {
         call.error(errmsg);
         return
     }
-    if (!ID) {
-        const Last = await last(["ID"]);
-        ID = (Last[0]?.ID || 0) + 1;
+    // if (!ID) {
+    //     const Last = await last(["ID"]);
+    //     ID = (Last[0]?.ID || 0) + 1;
+    // }
+    const Last = await last(["ID"]);
+    if (!(Last[0]?.ID)) {
+        call.error("服务器错误,文章添加失败");
     }
+    ID = (Last[0].ID || 0) + 1;
 
     const { brief, content, tag } = call.req;
     call.req.tag = Array.from(new Set(tag.map(e => e.toLowerCase())));

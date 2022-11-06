@@ -1,0 +1,1 @@
+function t(e=new Date){return{Y:e.getFullYear(),M:e.getMonth()+1,D:e.getDate(),h:e.getHours(),m:e.getMinutes(),s:e.getSeconds(),ms:e.getMilliseconds(),W:e.getDay()+1,getTime:e.getTime()}}export{t as g};
