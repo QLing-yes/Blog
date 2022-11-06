@@ -28,7 +28,6 @@ const fold = ref(false)
           <sidebar :isCollapse="false"></sidebar>
         </el-drawer>
       </template>
-      <!-- <router-view></router-view> -->
       <router-view v-slot="{ Component, route }">
         <transition name="fade" mode="out-in">
           <component :is="Component" />
@@ -44,7 +43,7 @@ const fold = ref(false)
 </style>
 <style scoped lang="scss">
 .main {
-  // background-color: antiquewhite;
+  background-color: rgb(255, 255, 255);
   width: 100%;
 }
 
