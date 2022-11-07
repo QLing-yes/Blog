@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import card from '@/Q-UI/Q-card/card.vue'
-import img from '@/assets/img/welt.jpg'
+import img from '@img/welt.jpg'
 import { nextTick, ref, shallowReactive, watch } from 'vue'
 import { catchScroll } from '@/Q-UI/tools/browser'
 import { useRouter } from 'vue-router'
@@ -16,6 +16,7 @@ watch(Basic.isSucc, (v, ol) => {
         img,
         key,
         '文章数量' + Basic.value.tagSize[key],
+        //"query,field"
         `${key},tag`,
       ])
     }

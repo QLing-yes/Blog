@@ -12,7 +12,7 @@ import TaskItem from '@tiptap/extension-task-item'
 import HorizontalRule from '@tiptap/extension-horizontal-rule'
 import Blockquote from '@tiptap/extension-blockquote'
 import image from '@tiptap/extension-image'
-
+import Code from '@tiptap/extension-code'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import { lowlight } from 'lowlight'
 import css from 'highlight.js/lib/languages/css'
@@ -21,6 +21,7 @@ import ts from 'highlight.js/lib/languages/typescript'
 import html from 'highlight.js/lib/languages/xml'
 import Link from '@tiptap/extension-link'
 import Dropcursor from '@tiptap/extension-dropcursor'
+import Typography from '@tiptap/extension-typography'
 lowlight.registerLanguage('html', html)
 lowlight.registerLanguage('css', css)
 lowlight.registerLanguage('js', js)
@@ -42,6 +43,11 @@ export let options: Partial<EditorOptions> | undefined = {
         }),
         HorizontalRule,
         Blockquote,
+        Code.configure({
+            HTMLAttributes: {
+                class: 'code',
+            },
+        }),
         /** 代码块弱光 */
         CodeBlockLowlight.configure({
             lowlight,
@@ -49,13 +55,13 @@ export let options: Partial<EditorOptions> | undefined = {
             // languageClassPrefix: 'language-',
             /** 默认语言 */
             defaultLanguage: 'ts',
-
         }),
         Link.configure({
             openOnClick: false,
             linkOnPaste: true,
-            /** 自动识别规则 */
-            // validate: href => /^https?:\/\//.test(href),
+            autolink: true,
+            /** 链接验证 */
+            // validate: href => /^(http|https):\/\//.test(href),
         }),
         image.configure({
             inline: true,
@@ -69,7 +75,8 @@ export let options: Partial<EditorOptions> | undefined = {
         Dropcursor.configure({
             // color: '#e85d5d',
             width: 2,
-        })
+        }),
+        Typography,
     ],
     content: '',
     autofocus: true,

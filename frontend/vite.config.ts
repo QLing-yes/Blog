@@ -12,7 +12,7 @@ export default defineConfig({
     preserveSymlinks: true,
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      '@img': fileURLToPath(new URL('./src/assets/img', import.meta.url)),
+      '@img': fileURLToPath(new URL('./public/img', import.meta.url)),
       '@font': fileURLToPath(new URL('./src/assets/font', import.meta.url)),
       '@anima': fileURLToPath(new URL('./src/assets/anima', import.meta.url)),
     }

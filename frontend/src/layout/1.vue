@@ -118,7 +118,6 @@ $w: 280px;
 }
 
 .Content {
-  // width: 100%;
   transition: all 0.4s;
   flex-direction: column;
   flex: 1;

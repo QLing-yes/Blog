@@ -24,11 +24,11 @@ onMounted(() => {
     const { ID } = route.query as query;
     getArticle({ ID: Number(ID) }).then((e) => {
         const { err, res } = e;
-        if (err) {
+        if (!e.isSucc) {
             console.error(err);
             return
         }
-        Article.value = res.Article[0];
+        Article.value = res!.Article[0];
         //主体内容
         editor.commands.setContent(Article.value.content?.value || '');
     })
@@ -53,7 +53,6 @@ function date(time?: number) {
             </span>
         </div>
         <EditorContent :editor="editor" class="m editor" />
-        <!-- <EditorContent :editor="editor" class="m Editor" /> -->
         <div class="m footer">
             <span class="info">
                 <span class="icon">&#xe652;</span>
@@ -65,14 +64,17 @@ function date(time?: number) {
 
 <style lang="scss" scoped>
 @import "../../Q-UI/tiptap/tiptap.scss";
+
 .Content {
+    max-width: 90vw;
+    width: 100%;
     display: flex;
     flex: 1;
     flex-direction: column;
-    overflow: auto;
     background-color: #fff;
     border-radius: 10px;
-    margin: 10px;
+    align-self: center;
+    margin: 10px 0px;
 }
 
 .m {

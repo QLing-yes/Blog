@@ -2,8 +2,6 @@
   "extends": "./tsconfig.app.json",
   "exclude": [
     "src/Q-UI/**/nodejs",
-    "src/assets/font/.font-spider",
-    "src/assets/font/font.html",
     "src/Q-UI/tiptap/*.vue"
   ],
   "compilerOptions": {

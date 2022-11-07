@@ -20,18 +20,22 @@ const Elinput = ref<HTMLElement>()
 const search = ref<string>('')
 const List = ref<ResgetArticle['Article']>([])
 const _field = ref('')
+const pageNum = ref(0);
 
 nextTick(() => {
     unfold.value = false;
-    Elinput.value?.addEventListener("keydown", (e) => {
-        if (e.key == "Enter") {
-            e.preventDefault();
-            submit();
-        }
-    })
-    document.addEventListener("keydown", Press)
 })
 onMounted(() => {
+    nextTick(() => {
+        Elinput.value?.addEventListener("keydown", (e) => {
+            if (e.key == "Enter") {
+                e.preventDefault();
+                submit(true);
+            }
+        })
+        document.addEventListener("keydown", Press)
+    })
+
     winEl.scrollTo({ left: 0, top: window.screen.availHeight - 100 });
     //query:查询内容, field:指定字段
     const { query, field } = route.query as query;
@@ -51,8 +55,11 @@ function Press(e: KeyboardEvent) {
 }
 //提交
 let cancel: ReturnType<typeof throttle>;
-const pageNum = ref(0);
-function submit() {
+function submit(again?: boolean) {
+    if (again) {
+        pageNum.value = 0;
+        List.value = [];
+    }
     queueMicrotask(() => {
         const str = correct(search.value);
         let field = correct(_field.value);
@@ -96,7 +103,7 @@ function read(item: typeof ArticleList.value[0]) {
         <div class="SearchBox">
             <div class="query">
                 <input type="text" ref="Elinput" maxlength="30" size="30" v-model="search" placeholder="搜索: 关键词, 标签">
-                <span class="submit" @click="submit()">&#xe8b9;</span>
+                <span class="submit" @click="submit(true)">&#xe8b9;</span>
             </div>
             <div class="bar">
                 <span>ctrl+k</span>
@@ -127,7 +134,7 @@ function read(item: typeof ArticleList.value[0]) {
 .list-enter-from,
 .list-leave-to {
     opacity: 0;
-    transform: translateX(30px);
+    // transform: translateX(30px);
 }
 
 .icon {
@@ -135,13 +142,19 @@ function read(item: typeof ArticleList.value[0]) {
 }
 
 .list {
-    margin: 30px;
+    margin: 30px !important;
+    padding: 0px !important;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 @media (max-width: 768px) {
+    .list {
+        margin: 8px;
+        margin-top: 30px;
+    }
+
     .card {
         width: 100% !important;
     }
@@ -149,8 +162,8 @@ function read(item: typeof ArticleList.value[0]) {
 
 .card {
     cursor: pointer;
-    width: 60%;
     height: 100px;
+    width: 80%;
     margin-bottom: 30px;
     padding-bottom: 10px;
     border-bottom: 1px solid;
@@ -174,6 +187,9 @@ function read(item: typeof ArticleList.value[0]) {
 }
 
 .Search {
+    max-width: 90vw;
+    width: 100%;
+    align-self: center;
     flex-direction: column;
     background-color: #fff;
     flex: 1;
@@ -184,8 +200,8 @@ function read(item: typeof ArticleList.value[0]) {
 @media (max-width: 768px) {
     .SearchBox {
         height: 60px !important;
-        max-width: 70% !important;
-        min-width: 70% !important;
+        max-width: 80% !important;
+        min-width: 80% !important;
 
         &>.bar {
             display: none;

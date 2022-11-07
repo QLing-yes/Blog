@@ -62,7 +62,7 @@ export function tabList(editor: Editor): list[][] {
                 icon: '\ue606',
             },
             event() {
-                editor.chain().focus().toggleCode().run()
+                editor.commands.toggleCode()
             },
         },
     ])
@@ -139,10 +139,16 @@ export function tabList(editor: Editor): list[][] {
             name: 'link',
             attr: {
                 icon: '\ue627',
-                tip: "'取消超链接'",
+                tip: "'超链接'",
             },
             event() {
-                editor.commands.unsetLink()
+                let href = editor.getAttributes('link').href;
+                href = window.prompt('URL', href || '');
+                if (urlVerify(href)) {
+                    editor.commands.setLink({ href });
+                    return;
+                }
+                editor.commands.unsetLink();
             }
         },
         {
@@ -152,13 +158,9 @@ export function tabList(editor: Editor): list[][] {
                 tip: "'图片'",
             },
             event() {
-                const url = window.prompt('URL:(http或https)最大长度200')
-                const reg = new RegExp(/[^http?:\/\/]|[^https?:\/\/]/);
-                if (reg.test(url || '')) {
+                const url = window.prompt('URL')
+                if (urlVerify(url || '')) {
                     editor.commands.setImage({ src: url! })
-                }
-                else {
-                    alert("URL过长或不规范");
                 }
             }
         },
@@ -166,6 +168,14 @@ export function tabList(editor: Editor): list[][] {
     return tab;
 }
 
+function urlVerify(url: string) {
+    const reg = new RegExp(/^(http|https):\/\//,);
+    if (reg.test(url)) {
+        return true;
+    }
+    alert("http://或https://开头,且长度小于200");
+    return false;
+}
 /** 列表清单 */
 function ListItem(editor: Editor) {
     let icon = ['\ue624', '\ue626', '\ue628']

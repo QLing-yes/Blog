@@ -31,6 +31,22 @@ const props = defineProps<prop>()
 img {
     content-visibility: auto;
 }
+.imgBox {
+    height: 100%;
+    aspect-ratio: 1.5 / 1;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    contain: strict;
+    margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+    .imgBox {
+        min-width: 35%;
+        max-width: 35%;
+    }
+}
 
 .icon {
     font-size: 1.25em !important;
@@ -69,16 +85,6 @@ img {
     content-visibility: auto;
     display: flex;
     contain: paint;
-}
-
-.imgBox {
-    height: 100%;
-    aspect-ratio: 1.5 / 1;
-    display: flex;
-    justify-content: center;
-    border-radius: 10px;
-    contain: strict;
-    margin-right: 10px;
 }
 
 .Box {
