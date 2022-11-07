@@ -3,10 +3,8 @@
   src: url('//at.alicdn.com/t/c/font_3626187_53und65yw64.ttf?t=1664282585584')
     format('truetype');
 }
+/* CDN 服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
 @font-face {
-  font-family: 'editor'; /* Project id 3649658 */
-  src: url('//at.alicdn.com/t/c/font_3649658_wh303gnfzle.woff2?t=1663224113325')
-      format('woff2'),
-    url('//at.alicdn.com/t/c/font_3649658_wh303gnfzle.ttf?t=1663224113325')
-      format('truetype');
+  font-family: 'editor';  /* Project id 3649658 */
+  src: url('//at.alicdn.com/t/c/font_3649658_70gup1d949r.woff2?t=1667792882134') format('woff2');
 }

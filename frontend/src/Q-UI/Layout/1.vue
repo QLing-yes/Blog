@@ -34,6 +34,7 @@ const props = defineProps<props>()
   min-height: v-bind("h || '0px'");
   transition: all 0.35s;
   background-color: aliceblue;
+  z-index: 1;
 }
 .Sidebar {
   contain: v-bind("w || 'size'") layout;

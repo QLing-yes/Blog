@@ -10,7 +10,23 @@
   &:deep(.ProseMirror) {
     outline: none;
     > * + * {
-      margin-top: 0.75em;
+      margin-top: 0.4em;
+    }
+    img {
+      max-width: 60%;
+      height: auto;
+      content-visibility: auto;
+      -webkit-user-drag: unset !important; //拖动
+      user-select: none !important; //选中
+      // object-fit: cover;
+      &.ProseMirror-selectednode {
+        outline: 3px solid #68cef8;
+      }
+    }
+    @media (max-width: 750px) {
+      img{
+        max-width: 80%;
+      }
     }
   }
 

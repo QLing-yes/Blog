@@ -20,7 +20,7 @@ const _tablist = tabList(props.editor)
         : item.attributes
           ? props.editor.isActive(item.attributes || {})
           : false
-    " v-bind="item.attr" @click="item.event!" v-for="item in list">
+    " v-bind="item.attr" @click="item.event?.()" v-for="item in list">
       <!-- 弹出菜单 -->
       <template v-if="!item.name && item.list">
         <tab :now="
@@ -29,7 +29,7 @@ const _tablist = tabList(props.editor)
             : popup.attributes
             ? props.editor.isActive(popup.attributes || {})
             : false
-        " v-bind="popup.attr" @click="popup.event!" v-for="popup in item.list"></tab>
+        " v-bind="popup.attr" @click="popup.event?.()" v-for="popup in item.list"></tab>
       </template>
     </tab>
   </div>

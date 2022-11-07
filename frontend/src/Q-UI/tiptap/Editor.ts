@@ -11,6 +11,7 @@ import TaskList from '@tiptap/extension-task-list'
 import TaskItem from '@tiptap/extension-task-item'
 import HorizontalRule from '@tiptap/extension-horizontal-rule'
 import Blockquote from '@tiptap/extension-blockquote'
+import image from '@tiptap/extension-image'
 
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import { lowlight } from 'lowlight'
@@ -19,6 +20,7 @@ import js from 'highlight.js/lib/languages/javascript'
 import ts from 'highlight.js/lib/languages/typescript'
 import html from 'highlight.js/lib/languages/xml'
 import Link from '@tiptap/extension-link'
+import Dropcursor from '@tiptap/extension-dropcursor'
 lowlight.registerLanguage('html', html)
 lowlight.registerLanguage('css', css)
 lowlight.registerLanguage('js', js)
@@ -55,6 +57,19 @@ export let options: Partial<EditorOptions> | undefined = {
             /** 自动识别规则 */
             // validate: href => /^https?:\/\//.test(href),
         }),
+        image.configure({
+            inline: true,
+            allowBase64: false,
+            HTMLAttributes: {
+                class: 'tiptapImg',
+                loading: "lazy",
+                decoding: "async"
+            }
+        }),
+        Dropcursor.configure({
+            // color: '#e85d5d',
+            width: 2,
+        })
     ],
     content: '',
     autofocus: true,

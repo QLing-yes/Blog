@@ -145,6 +145,23 @@ export function tabList(editor: Editor): list[][] {
                 editor.commands.unsetLink()
             }
         },
+        {
+            name: 'image',
+            attr: {
+                icon: '\ue8ba',
+                tip: "'图片'",
+            },
+            event() {
+                const url = window.prompt('URL:(http或https)最大长度200')
+                const reg = new RegExp(/[^http?:\/\/]|[^https?:\/\/]/);
+                if (reg.test(url || '')) {
+                    editor.commands.setImage({ src: url! })
+                }
+                else {
+                    alert("URL过长或不规范");
+                }
+            }
+        },
     ])
     return tab;
 }
