@@ -7,7 +7,7 @@ export const { Router, FindRoute } = new initRoute(Table);
 
 Router.beforeEach((to, from, next) => {
     const { path } = to;
-    if (path == '/') next({ path: '/page1/' })
+    if (path == '/') next({ path: '/editor/' })
     next()
 })
 console.log('路由表', Router.getRoutes());

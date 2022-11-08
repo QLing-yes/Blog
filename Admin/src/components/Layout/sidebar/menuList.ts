@@ -12,8 +12,8 @@ import type { menu, menu_item } from '../subSidebar/subSidebar'
 
 let page1: menu_item = {
     icon: Location,
-    index:'/page1/',
-    title: 'page1',
+    index:'/editor/',
+    title: 'editor',
     click: tab
 }
 let page2: menu_item = {
@@ -22,9 +22,10 @@ let page2: menu_item = {
     title: 'page2',
     click: tab
 }
+
 let item1 = {
     icon: Location,
-    title: 'page2',
+    title: 'page1',
     sub:[page1],
     click: tab
 }

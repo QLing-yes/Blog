@@ -17,7 +17,7 @@ watch(Basic.isSucc, (v, ol) => {
         key,
         '文章数量' + Basic.value.tagSize[key],
         //"query,field"
-        `${key},tag`,
+        `${key},tag`
       ])
     }
   }

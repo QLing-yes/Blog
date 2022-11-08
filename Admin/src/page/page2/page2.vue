@@ -1,3 +1,3 @@
 <template>
-    <span>1</span>
+    <span>暂无内容</span>
 </template>
