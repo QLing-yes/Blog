@@ -3,6 +3,7 @@ import * as path from "path";
 import { HttpServer } from "tsrpc";
 import { serviceProto } from "./shared/protocols/serviceProto";
 import { Guard } from "./models/Flow/Flow";
+import fs from "fs";
 // Create the Server
 const server = new HttpServer(serviceProto, {
     port: 3000,
@@ -10,10 +11,10 @@ const server = new HttpServer(serviceProto, {
     json: true,
     // logReqBody: false,
     logResBody: false,
-    // https: {
-    //     key: fs.readFileSync(__dirname + '/../assets/cert/ling-in.top.key'),
-    //     cert: fs.readFileSync(__dirname + '/../assets/cert/ling-in.top_bundle.crt')
-    // },
+    https: {
+        key: fs.readFileSync(__dirname + '/../assets/ssl/ling-in.top.key'),
+        cert: fs.readFileSync(__dirname + '/../assets/ssl/ling-in.top_bundle.crt')
+    },
 });
 
 async function init() {

@@ -4,7 +4,7 @@ const dbConfig = require("../../assets/db.config.json");
 
 if (!dbConfig) { console.error("数据库配置文件导入错误") }
 export const MDB = new MongoDB<Schema>(
-    // 'mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false'
+    // 'mongodb://localhost:27017'
     dbConfig.key
 );
 

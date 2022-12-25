@@ -45,7 +45,7 @@ function IPFrequently(ip: string, call: any) {
     if (IPs[ip]) {
         const time = Math.abs(now - IPs[ip]!);
         if (time < 1500) {
-            call.conn.httpRes.end(JSON.stringify({ isSucc: false, err: '请求频繁!!', }));
+            call.conn.httpRes.end(JSON.stringify({ isSucc: false, err: '请求频繁!', }));
             IPs[ip] = now;
             return false;
         }

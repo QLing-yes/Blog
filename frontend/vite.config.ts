@@ -7,6 +7,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(), vueJsx()],
+  // base: './',
   resolve: {
     //不使用符号链接后的原始文件路径?
     preserveSymlinks: true,
